@@ -2,4 +2,44 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+}
+
+body {
+	background: #1e1e1e;
+}
+
+ul {
+	display: flex;
+
+	li {
+		list-style: none;
+	}
+}
+
+.btn {
+	background-color: #e83232;
+	border: none;
+	border-radius: 4px;
+	color: #fff;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: 0.2s all ease;
+
+	&:focus {
+		box-shadow: 0px 0px 1px 3px rgba(232, 50, 50, 0.4);
+	}
+	&-text {
+		background-color: rgba(232, 50, 50, 0.05);
+	}
+}
+
+.container {
+	max-width: 1230px;
+	margin: 0 auto;
+	padding: 0 15px;
+
+	&.lg {
+		max-width: 1410px;
+	}
 }
