@@ -20,3 +20,22 @@
 		resize: none;
 	}
 }
+
+.text-header-wrapper {
+	.header-title {
+		font-size: 32px;
+		font-weight: 700;
+		line-height: normal;
+
+		@media screen and (max-width: 425px) {
+			font-size: 24px;
+		}
+	}
+	.header-subtitle {
+		font-size: 18px;
+		font-weight: 400;
+	}
+	@media screen and (max-width: 425px) {
+		font-size: 14px;
+	}
+}
