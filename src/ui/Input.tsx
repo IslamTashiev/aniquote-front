@@ -11,6 +11,7 @@ interface InputProps {
 	textareaStyles?: string;
 	inputStyles?: string;
 	isRequired?: boolean;
+	value: string | number;
 }
 
 const Input = (props: InputProps) => {
@@ -24,6 +25,7 @@ const Input = (props: InputProps) => {
 		textareaStyles = "",
 		inputStyles = "",
 		isRequired = false,
+		value,
 	} = props;
 
 	return (
@@ -37,6 +39,7 @@ const Input = (props: InputProps) => {
 					placeholder={placeholder}
 					onChange={(e) => onChangeValue(e.target.value)}
 					className={clsx("textarea", { [textareaStyles]: !!textareaStyles })}
+					value={value}
 				></textarea>
 			)}
 			{!isTextArea && (
@@ -45,6 +48,7 @@ const Input = (props: InputProps) => {
 					type={type}
 					onChange={(e) => onChangeValue(e.target.value)}
 					className={clsx("input", { [inputStyles]: !!inputStyles })}
+					value={value}
 				/>
 			)}
 		</div>
