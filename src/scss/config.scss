@@ -40,7 +40,10 @@ ul {
 	margin: 0 auto;
 	padding: 0 15px;
 
-	&.lg {
+	&.no-container {
+		max-width: 100%;
+	}
+	&.large {
 		max-width: 1410px;
 	}
 }

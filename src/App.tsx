@@ -1,11 +1,7 @@
-import MainLayout from "./Layouts/MainLayout";
+import Routes from "./Routes";
 
 function App() {
-	return (
-		<div className='App'>
-			<MainLayout />
-		</div>
-	);
+	return <Routes />;
 }
 
 export default App;
