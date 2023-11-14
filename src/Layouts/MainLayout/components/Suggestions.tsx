@@ -9,6 +9,7 @@ const Suggestions = () => {
 	const [author, setAuthor] = useState<string>("");
 	const [anime, setAnime] = useState<string>("");
 	const [videoLink, setVideoLink] = useState<string>("");
+	const [localFiles, setLocalFiles] = useState<FileList | null>(null);
 
 	return (
 		<div className='suggestions'>
@@ -61,7 +62,8 @@ const Suggestions = () => {
 								label='Or upload video from your device (.png, .vid, .pdf)'
 								placeholder='The anime from which you took the quote'
 								type='file'
-								value={""}
+								files={localFiles}
+								onChangeFiles={(files) => setLocalFiles(files)}
 							/>
 						</div>
 						<div className='suggestions-form-col'>
