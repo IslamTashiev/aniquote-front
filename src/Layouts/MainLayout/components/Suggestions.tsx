@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import TextHeader from "../../../ui/TextHeader";
 import Input from "../../../ui/Input";
 
 import "./_style.scss";
 
 const Suggestions = () => {
+	const [quote, setQuote] = useState<string>("");
+	const [author, setAuthor] = useState<string>("");
+	const [anime, setAnime] = useState<string>("");
+	const [videoLink, setVideoLink] = useState<string>("");
+
 	return (
 		<div className='suggestions'>
 			<div className='suggestions-content container'>
@@ -17,38 +22,38 @@ const Suggestions = () => {
 						<Input
 							isTextArea
 							isRequired
-							onChangeValue={() => {}}
+							onChangeValue={(value) => setQuote(value)}
 							label='Quote'
 							placeholder='Any quote'
 							type='text'
-							value={""}
+							value={quote}
 							textareaStyles='suggestions-form-textarea'
 						/>
 						<div className='suggestions-form-col'>
 							<Input
 								isRequired
-								onChangeValue={() => {}}
+								onChangeValue={(value) => setAnime(value)}
 								label='Anime'
 								placeholder='The anime from which you took the quote'
 								type='text'
-								value={""}
+								value={anime}
 							/>
 							<Input
 								isRequired
-								onChangeValue={() => {}}
+								onChangeValue={(value) => setAuthor(value)}
 								label='Author of quote'
 								placeholder='Jiraya'
 								type='text'
-								value={""}
+								value={author}
 							/>
 						</div>
 						<div className='suggestions-form-col'>
 							<Input
-								onChangeValue={() => {}}
+								onChangeValue={(value) => setVideoLink(value)}
 								label='Link to video'
 								placeholder='https://your-link.com'
 								type='text'
-								value={""}
+								value={videoLink}
 								inputWrapperStyles='link-input'
 							/>
 							<Input

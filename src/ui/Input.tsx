@@ -3,7 +3,7 @@ import "./_style.scss";
 
 interface InputProps {
 	label: string;
-	onChangeValue: (value: string | number) => void;
+	onChangeValue: (value: string) => void;
 	type: string;
 	placeholder: string;
 	isTextArea?: boolean;
@@ -11,7 +11,7 @@ interface InputProps {
 	textareaStyles?: string;
 	inputStyles?: string;
 	isRequired?: boolean;
-	value: string | number;
+	value: string;
 }
 
 const Input = (props: InputProps) => {

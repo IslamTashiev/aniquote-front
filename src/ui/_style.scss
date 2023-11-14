@@ -34,8 +34,9 @@
 	.header-subtitle {
 		font-size: 18px;
 		font-weight: 400;
-	}
-	@media screen and (max-width: 425px) {
-		font-size: 14px;
+
+		@media screen and (max-width: 425px) {
+			font-size: 14px;
+		}
 	}
 }
