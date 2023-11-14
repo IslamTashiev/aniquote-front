@@ -125,6 +125,11 @@
 	position: relative;
 	z-index: 10;
 	padding: 48px 0;
+	background-size: cover;
+
+	@media screen and (max-width: 425px) {
+		padding: 24px 0;
+	}
 
 	&::after {
 		content: "";
@@ -148,6 +153,13 @@
 		gap: 12px;
 		margin-top: 24px;
 
+		@media screen and (max-width: 425px) {
+			margin-top: 16px;
+		}
+		@media screen and (max-width: 768px) {
+			max-width: 100%;
+		}
+
 		&-textarea {
 			height: 100px;
 		}
@@ -157,15 +169,27 @@
 			display: flex;
 			gap: 12px;
 
+			@media screen and (max-width: 768px) {
+				flex-direction: column;
+			}
+
 			.input-wrapper {
 				width: 100%;
 
 				&.link-input {
 					width: 60%;
+
+					@media screen and (max-width: 768px) {
+						width: 100%;
+					}
 				}
 			}
 			.btn {
 				width: 30%;
+
+				@media screen and (max-width: 425px) {
+					width: 100%;
+				}
 			}
 		}
 	}
