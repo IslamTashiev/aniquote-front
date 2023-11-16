@@ -33,12 +33,29 @@ ul {
 	&-text {
 		background-color: rgba(232, 50, 50, 0.05);
 	}
+
+	&-outlined {
+		background-color: transparent;
+		border: 2px solid #e83232;
+	}
+
+	&-icon {
+		background-color: transparent;
+		border: 2px solid #e83232;
+		padding: 0;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }
 
 .container {
 	max-width: 1230px;
 	margin: 0 auto;
 	padding: 0 15px;
+	width: 100%;
 
 	&.no-container {
 		max-width: 100%;
