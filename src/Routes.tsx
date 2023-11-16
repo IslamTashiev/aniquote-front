@@ -9,7 +9,7 @@ const Routes = () => {
 			<Route
 				path='/'
 				element={
-					<MainLayout>
+					<MainLayout containerType='no-container'>
 						<Home />
 					</MainLayout>
 				}
