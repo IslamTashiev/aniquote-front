@@ -40,6 +40,7 @@ const slides = [
 
 export default function App() {
 	const [swiper, setSwiper] = useState<SwiperTypes | null>(null);
+	const [activeIndex, setActiveIndex] = useState<number>(0);
 
 	const slideTo = (slideIndex: number) => {
 		if (swiper) {
@@ -53,15 +54,15 @@ export default function App() {
 				spaceBetween={30}
 				effect={"fade"}
 				modules={[EffectFade, Navigation, Pagination]}
-				className='mySwiper'
 				onInit={(event: SwiperTypes) => setSwiper(event)}
+				onSlideChange={({ activeIndex }: SwiperTypes) => setActiveIndex(activeIndex)}
 			>
 				{slides.map((item, index) => (
 					<SwiperSlide key={index}>
 						<MainCarauselItem
 							slideTo={slideTo}
 							info={item}
-							activeItem={swiper?.activeIndex ?? 0}
+							activeItem={activeIndex}
 							slidesCount={slides.length}
 						/>
 					</SwiperSlide>
