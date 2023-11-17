@@ -1,5 +1,4 @@
 .main-carousel-item {
-	background: url("../assets/Carousel-item-bckg.png");
 	background-size: cover;
 	position: relative;
 
@@ -20,6 +19,7 @@
 	}
 	&-anime-logo {
 		max-width: 200px;
+		height: 100px;
 	}
 	&-quote {
 		font-size: 16px;
@@ -47,5 +47,46 @@
 	}
 	&.carousel-quote {
 		max-width: 450px;
+	}
+}
+.pagination {
+	display: flex;
+	gap: 4px;
+	margin-top: 24px;
+	transition: all 0.3s ease;
+
+	&-item {
+		width: 20px;
+		height: 8px;
+		border-radius: 6px;
+		background: #5d5d5d;
+		transition: all 0.3s ease;
+		cursor: pointer;
+
+		&.active {
+			width: 30px;
+			position: relative;
+
+			&::before {
+				position: absolute;
+				content: "";
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: #e83232;
+				border-radius: 6px;
+				animation: pagination-item infinite 8s ease-in-out;
+
+				// @keyframes pagination-item {
+				// 	0% {
+				// 		width: 0%;
+				// 	}
+				// 	100% {
+				// 		width: 100%;
+				// 	}
+				// }
+			}
+		}
 	}
 }
