@@ -1,5 +1,5 @@
 .main-carousel-item {
-	background-size: cover;
+	background-size: cover !important;
 	position: relative;
 
 	&::after {
@@ -15,17 +15,15 @@
 	&-content {
 		position: relative;
 		z-index: 2;
-		padding: 170px 0;
+		padding: 170px 15px;
+
+		@media screen and (max-width: 768px) {
+			padding: 110px 15px;
+		}
 	}
 	&-anime-logo {
 		max-width: 200px;
 		height: 100px;
-	}
-	&-quote {
-		font-size: 16px;
-		font-weight: 400;
-		max-width: 450px;
-		margin: 24px 0;
 	}
 	&-btns {
 		display: flex;
@@ -41,6 +39,11 @@
 		font-size: 16px;
 		font-weight: 400;
 		margin: 24px 0;
+
+		@media screen and (max-width: 550px) {
+			margin: 12px 0;
+			font-size: 14px;
+		}
 	}
 	&-author {
 		color: #e83232;
@@ -54,6 +57,10 @@
 	gap: 4px;
 	margin-top: 24px;
 	transition: all 0.3s ease;
+
+	@media screen and (max-width: 550px) {
+		margin-top: 12px;
+	}
 
 	&-item {
 		width: 20px;

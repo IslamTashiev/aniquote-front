@@ -21,7 +21,7 @@ interface MainCarauselItemProps {
 
 const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCarauselItemProps) => {
 	return (
-		<div style={{ background: `url(${info.bckgImage})` }} className='main-carousel-item'>
+		<div style={{ background: `url(${info.bckgImage}) center` }} className='main-carousel-item'>
 			<div className='main-carousel-item-content container'>
 				<img className='main-carousel-item-anime-logo' src={info.logo} alt='anime-logo' />
 				<QuoteText author={info.author} quote={info.quote} wrapperClass='carousel-quote' />
