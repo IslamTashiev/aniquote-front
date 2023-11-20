@@ -4,16 +4,10 @@ import QuoteText from "./QuoteText";
 import { ReactComponent as FavoiriteIcon } from "../assets/Favoirite.svg";
 
 import "./_style.scss";
-
-type info = {
-	logo: string;
-	quote: string;
-	author: string;
-	bckgImage: string;
-};
+import { IMainCarouselData } from "../models";
 
 interface MainCarauselItemProps {
-	info: info;
+	info: IMainCarouselData;
 	activeItem: number;
 	slidesCount: number;
 	slideTo: (slideIndex: number) => void;
@@ -21,10 +15,10 @@ interface MainCarauselItemProps {
 
 const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCarauselItemProps) => {
 	return (
-		<div style={{ background: `url(${info.bckgImage}) center` }} className='main-carousel-item'>
+		<div style={{ background: `url(${info.anime_bckg}) center` }} className='main-carousel-item'>
 			<div className='main-carousel-item-content container'>
-				<img className='main-carousel-item-anime-logo' src={info.logo} alt='anime-logo' />
-				<QuoteText author={info.author} quote={info.quote} wrapperClass='carousel-quote' />
+				<img className='main-carousel-item-anime-logo' src={info.anime_logo} alt='anime-logo' />
+				<QuoteText author={info.character} quote={info.quote} wrapperClass='carousel-quote' />
 				<div className='main-carousel-item-btns'>
 					<button className='btn see-more'>See more</button>
 					<button className='btn btn-icon'>
@@ -33,11 +27,7 @@ const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCaraus
 				</div>
 				<div className='pagination'>
 					{new Array(slidesCount).fill(slidesCount).map((_, index) => (
-						<div
-							onClick={() => slideTo(index)}
-							key={Math.random()}
-							className={clsx("pagination-item", { active: activeItem === index })}
-						></div>
+						<div onClick={() => slideTo(index)} key={Math.random()} className={clsx("pagination-item", { active: activeItem === index })}></div>
 					))}
 				</div>
 			</div>
