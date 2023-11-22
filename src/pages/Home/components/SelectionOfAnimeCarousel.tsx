@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect } from "react";
 import AnimeCard from "../../../components/AnimeCard";
+import usePagesDataStore from "../../../store/pagesData/pagesData";
+import AnimeCardsLoader from "./AnimeCardsLoader";
 
 import "swiper/css";
 import "./_style.scss";
-import usePagesDataStore from "../../../store/pagesData/pagesData";
-import { useEffect } from "react";
-import AnimeCardsLoader from "./AnimeCardsLoader";
 
 const SelectionOfAnimeCarousel = () => {
 	const { animeCards, getAnimeCards, animeCardsIsLoaded } = usePagesDataStore((state) => state);

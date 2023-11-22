@@ -3,6 +3,7 @@ import { Routes as RoutesCore, Route } from "react-router-dom";
 import MainLayout from "./Layouts/MainLayout";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
+import SelectionsDetail from "./pages/SelectionsDetail";
 
 const Routes = () => {
 	return (
@@ -20,6 +21,14 @@ const Routes = () => {
 				element={
 					<MainLayout containerType='no-container'>
 						<AboutUs />
+					</MainLayout>
+				}
+			/>
+			<Route
+				path='/selections/:animeTitle'
+				element={
+					<MainLayout containerType='no-container'>
+						<SelectionsDetail />
 					</MainLayout>
 				}
 			/>
