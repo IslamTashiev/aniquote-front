@@ -18,3 +18,16 @@ export interface IAnimeCard {
 	anime: string;
 	quotes: IQuote[];
 }
+export interface ICollectionItem {
+	_id: string;
+	anime: string;
+	anime_image: string;
+	quotes: IQuote[];
+}
+export interface ICollectionData {
+	docs: ICollectionItem[];
+	total: number;
+	limit: string;
+	page: string;
+	pages: number;
+}
