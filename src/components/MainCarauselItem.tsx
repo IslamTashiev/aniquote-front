@@ -5,6 +5,7 @@ import { ReactComponent as FavoiriteIcon } from "../assets/Favoirite.svg";
 
 import "./_style.scss";
 import { IMainCarouselData } from "../models";
+import { useNavigate } from "react-router-dom";
 
 interface MainCarauselItemProps {
 	info: IMainCarouselData;
@@ -14,13 +15,17 @@ interface MainCarauselItemProps {
 }
 
 const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCarauselItemProps) => {
+	const navigate = useNavigate();
+
 	return (
 		<div style={{ background: `url(${info.anime_bckg}) center` }} className='main-carousel-item'>
 			<div className='main-carousel-item-content container'>
 				<img className='main-carousel-item-anime-logo' src={info.anime_logo} alt='anime-logo' />
 				<QuoteText author={info.character} quote={info.quote} wrapperClass='carousel-quote' />
 				<div className='main-carousel-item-btns'>
-					<button className='btn see-more'>See more</button>
+					<button className='btn see-more' onClick={() => navigate("/selections/" + info.anime)}>
+						See more
+					</button>
 					<button className='btn btn-icon'>
 						<FavoiriteIcon />
 					</button>
