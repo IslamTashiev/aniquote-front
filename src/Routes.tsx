@@ -4,34 +4,27 @@ import MainLayout from "./Layouts/MainLayout";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import SelectionsDetail from "./pages/SelectionsDetail";
+import Collections from "./pages/Collections";
+
+interface IRoutes {
+	path: string;
+	containerType: "large" | "default" | "no-container";
+	component: JSX.Element | JSX.Element[] | string | string[];
+}
 
 const Routes = () => {
+	const routes: IRoutes[] = [
+		{ path: "/", component: <Home />, containerType: "no-container" },
+		{ path: "/about-us", component: <AboutUs />, containerType: "no-container" },
+		{ path: "/selections/:animeTitle", component: <SelectionsDetail />, containerType: "no-container" },
+		{ path: "/collection", component: <Collections />, containerType: "no-container" },
+	];
+
 	return (
 		<RoutesCore>
-			<Route
-				path='/'
-				element={
-					<MainLayout containerType='no-container'>
-						<Home />
-					</MainLayout>
-				}
-			/>
-			<Route
-				path='/about-us'
-				element={
-					<MainLayout containerType='no-container'>
-						<AboutUs />
-					</MainLayout>
-				}
-			/>
-			<Route
-				path='/selections/:animeTitle'
-				element={
-					<MainLayout containerType='no-container'>
-						<SelectionsDetail />
-					</MainLayout>
-				}
-			/>
+			{routes.map((item) => (
+				<Route path={item.path} element={<MainLayout containerType={item.containerType}>{item.component}</MainLayout>} />
+			))}
 		</RoutesCore>
 	);
 };
