@@ -1,10 +1,17 @@
 import React from "react";
+import { ICollectionItem } from "../../../models";
+import { useNavigate } from "react-router-dom";
 
-const CollectionItem = () => {
+interface CollectionItemProps {
+	info: ICollectionItem;
+}
+
+const CollectionItem = ({ info }: CollectionItemProps) => {
+	const navigate = useNavigate();
 	return (
-		<div className='collection-item'>
-			<img src='https://avatars.dzeninfra.ru/get-zen_doc/4419441/pub_60a698a557455d23cad2a825_60a69adb52636e385aafa17c/scale_1200' alt='anime' />
-			<div className='collection-item-content'>CollectionItem</div>
+		<div className='collection-item' onClick={() => navigate("/selections/" + info.anime)}>
+			<img src={info.anime_image} alt='anime' />
+			<div className='collection-item-content'>{info.anime}</div>
 		</div>
 	);
 };
