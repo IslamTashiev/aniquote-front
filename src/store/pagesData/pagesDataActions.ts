@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IAnimeCard, ICollectionData, IMainCarouselData } from "../../models";
+import { IAnimeCard, ICollectionData, ICollectionItem, IMainCarouselData } from "../../models";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/";
 
@@ -14,4 +14,8 @@ export const getAnimeCards = async () => {
 export const getCollections = async () => {
 	const { data } = await axios(API_URL + "anime-quotes");
 	return data as ICollectionData;
+};
+export const getCollectionsDetail = async (animeTitle: string) => {
+	const { data } = await axios.post(API_URL + "anime", { animeTitle });
+	return data as ICollectionItem[];
 };

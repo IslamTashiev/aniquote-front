@@ -1,5 +1,5 @@
 import create from "zustand";
-import { IAnimeCard, ICollectionData, IMainCarouselData } from "../../models";
+import { IAnimeCard, ICollectionData, ICollectionItem, IMainCarouselData } from "../../models";
 import * as PagesDataActions from "./pagesDataActions";
 
 type IPagesData = {
@@ -9,8 +9,11 @@ type IPagesData = {
 	animeCardsIsLoaded: boolean;
 	collectionData: ICollectionData | null;
 	collectionDataIsLoaded: boolean;
+	collectionDetailData: ICollectionItem[];
+	collectionDetailDataIsLoaded: boolean;
 	getMainCarouselItems: () => void;
 	getAnimeCards: () => void;
+	getCollectionDetailData: (animeTitle: string) => void;
 };
 
 const usePagesDataStore = create<IPagesData>((set) => ({
@@ -20,6 +23,8 @@ const usePagesDataStore = create<IPagesData>((set) => ({
 	animeCardsIsLoaded: false,
 	collectionData: null,
 	collectionDataIsLoaded: false,
+	collectionDetailData: [],
+	collectionDetailDataIsLoaded: false,
 	getMainCarouselItems: async () => {
 		set({ mainCarouselDataIsLoaded: false });
 		const data = await PagesDataActions.getMainCarouselItems();
@@ -45,6 +50,15 @@ const usePagesDataStore = create<IPagesData>((set) => ({
 		if (data) {
 			set({ collectionData: data });
 			set({ collectionDataIsLoaded: true });
+		}
+	},
+	getCollectionDetailData: async (animeTitle: string) => {
+		set({ collectionDetailDataIsLoaded: false });
+		const data = await PagesDataActions.getCollectionsDetail(animeTitle);
+
+		if (data) {
+			set({ collectionDetailData: data });
+			set({ collectionDetailDataIsLoaded: true });
 		}
 	},
 }));
