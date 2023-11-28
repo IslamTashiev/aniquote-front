@@ -15,7 +15,7 @@ const SelectionOfAnimeCarousel = () => {
 	}, [getAnimeCards]);
 
 	return animeCardsIsLoaded ? (
-		<Swiper className='collection-swiper' slidesPerView={4} spaceBetween={20}>
+		<Swiper className='collection-swiper' slidesPerView={5} spaceBetween={20}>
 			{animeCards.map((card) => (
 				<SwiperSlide key={card._id}>
 					<AnimeCard info={card} />
