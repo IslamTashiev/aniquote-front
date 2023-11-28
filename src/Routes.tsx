@@ -23,7 +23,7 @@ const Routes = () => {
 	return (
 		<RoutesCore>
 			{routes.map((item) => (
-				<Route path={item.path} element={<MainLayout containerType={item.containerType}>{item.component}</MainLayout>} />
+				<Route key={item.path} path={item.path} element={<MainLayout containerType={item.containerType}>{item.component}</MainLayout>} />
 			))}
 		</RoutesCore>
 	);

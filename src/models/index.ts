@@ -21,7 +21,7 @@ export interface IAnimeCard {
 export interface ICollectionItem {
 	_id: string;
 	anime: string;
-	anime_image: string;
+	anime_image: string[];
 	quotes: IQuote[];
 }
 export interface ICollectionData {
