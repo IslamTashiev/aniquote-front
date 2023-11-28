@@ -1,9 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useEffect } from "react";
 import { Swiper as SwiperTypes } from "swiper";
 import AnimeCard from "../../../components/AnimeCard";
 import usePagesDataStore from "../../../store/pagesData/pagesData";
-import AnimeCardsLoader from "./AnimeCardsLoader";
 
 import "swiper/css";
 import "./_style.scss";
@@ -13,23 +11,41 @@ interface SelectionOfAnimeCarouselProps {
 	setCurrentSlideIndex: (index: number) => void;
 }
 
+const swiperBreakpoints = {
+	1400: {
+		spaceBetween: 20,
+		slidesPerView: 5,
+	},
+	1200: {
+		spaceBetween: 15,
+		slidesPerView: 5,
+	},
+
+	900: {
+		spaceBetween: 10,
+		slidesPerView: 4,
+	},
+	768: {
+		spaceBetween: 10,
+		slidesPerView: 3,
+	},
+	0: {
+		spaceBetween: 10,
+		slidesPerView: 2,
+	},
+};
+
 const SelectionOfAnimeCarousel = ({ setSwiper, setCurrentSlideIndex }: SelectionOfAnimeCarouselProps) => {
-	const { animeCards, getAnimeCards, animeCardsIsLoaded } = usePagesDataStore((state) => state);
+	const { animeCards } = usePagesDataStore((state) => state);
 
-	useEffect(() => {
-		getAnimeCards();
-	}, [getAnimeCards]);
-
-	return animeCardsIsLoaded ? (
-		<Swiper onInit={(e: SwiperTypes) => setSwiper(e)} onSlideChange={(e: SwiperTypes) => setCurrentSlideIndex(e.activeIndex)} className='collection-swiper' slidesPerView={5} spaceBetween={20}>
+	return (
+		<Swiper onInit={(e: SwiperTypes) => setSwiper(e)} onSlideChange={(e: SwiperTypes) => setCurrentSlideIndex(e.activeIndex)} className='collection-swiper' breakpoints={swiperBreakpoints}>
 			{animeCards.map((card) => (
 				<SwiperSlide key={card._id}>
 					<AnimeCard info={card} />
 				</SwiperSlide>
 			))}
 		</Swiper>
-	) : (
-		<AnimeCardsLoader />
 	);
 };
 

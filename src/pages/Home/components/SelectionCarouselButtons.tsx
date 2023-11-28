@@ -14,7 +14,7 @@ const SelectionCarouselButtons = ({ swiper, currentSlideIndex }: SelectionCarous
 				<Arrow />
 			</button>
 			<span className='selection-carousel-info'>
-				{currentSlideIndex + 1} of {swiper?.snapGrid.length}
+				{currentSlideIndex + 1} of {swiper?.snapGrid?.length}
 			</span>
 			<button className='btn' onClick={() => swiper?.slideNext()}>
 				<Arrow />
