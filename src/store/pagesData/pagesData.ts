@@ -11,13 +11,14 @@ type IPagesData = {
 	collectionDataIsLoaded: boolean;
 	collectionDetailData: ICollectionItem[];
 	collectionDetailDataIsLoaded: boolean;
+	loadedCollectionPages: number | null;
 	getMainCarouselItems: () => void;
 	getAnimeCards: () => void;
 	getCollectionDetailData: (animeTitle: string) => void;
 	getCollectionData: (page: number) => void;
 };
 
-const usePagesDataStore = create<IPagesData>((set) => ({
+const usePagesDataStore = create<IPagesData>((set, get) => ({
 	mainCarouselData: [],
 	mainCarouselDataIsLoaded: false,
 	animeCards: [],
@@ -26,6 +27,7 @@ const usePagesDataStore = create<IPagesData>((set) => ({
 	collectionDataIsLoaded: false,
 	collectionDetailData: [],
 	collectionDetailDataIsLoaded: false,
+	loadedCollectionPages: null,
 	getMainCarouselItems: async () => {
 		set({ mainCarouselDataIsLoaded: false });
 		const data = await PagesDataActions.getMainCarouselItems();
@@ -49,7 +51,12 @@ const usePagesDataStore = create<IPagesData>((set) => ({
 		const data = await PagesDataActions.getCollections(page);
 
 		if (data) {
-			set((state) => ({ collectionData: [...state.collectionData, ...data] }));
+			const { collectionData } = get();
+			const uniqueData = data.filter((newItem) => {
+				return !collectionData.some((existingItem) => existingItem._id === newItem._id);
+			});
+
+			set((state) => ({ collectionData: [...state.collectionData, ...uniqueData], loadedCollectionPages: page }));
 			set({ collectionDataIsLoaded: true });
 		}
 	},

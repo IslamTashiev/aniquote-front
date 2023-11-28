@@ -7,8 +7,8 @@ import "./_style.scss";
 import usePagesDataStore from "../../../store/pagesData/pagesData";
 
 const CollectionList = () => {
-	const [currentPage, setCurrentPage] = useState<number>(1);
-	const { collectionData, getCollectionData } = usePagesDataStore((state) => state);
+	const { collectionData, getCollectionData, loadedCollectionPages } = usePagesDataStore((state) => state);
+	const [currentPage, setCurrentPage] = useState<number>(loadedCollectionPages || 1);
 
 	const handleLoadMore = () => {
 		setCurrentPage(currentPage + 1);

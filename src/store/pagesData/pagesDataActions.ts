@@ -15,6 +15,7 @@ export const getCollections = async (page: number) => {
 	const { data } = await axios(API_URL + "anime-quotes", {
 		params: {
 			page,
+			limit: 8,
 		},
 	});
 	return data.docs as ICollectionItem[];
