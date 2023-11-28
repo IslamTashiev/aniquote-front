@@ -5,9 +5,10 @@ import getMoreImage from "../../../assets/Get-more.png";
 
 import "./_style.scss";
 import usePagesDataStore from "../../../store/pagesData/pagesData";
+import CollectionListLoader from "./CollectionListLoader";
 
 const CollectionList = () => {
-	const { collectionData, getCollectionData, loadedCollectionPages } = usePagesDataStore((state) => state);
+	const { collectionData, getCollectionData, loadedCollectionPages, collectionDataIsLoaded } = usePagesDataStore((state) => state);
 	const [currentPage, setCurrentPage] = useState<number>(loadedCollectionPages || 1);
 
 	const handleLoadMore = () => {
@@ -25,6 +26,7 @@ const CollectionList = () => {
 				{collectionData.map((item) => (
 					<CollectionItem key={item._id} info={item} />
 				))}
+				{!collectionDataIsLoaded && [...new Array(8)].map(() => <CollectionListLoader key={Math.random() + Math.random()} />)}
 			</div>
 			<div className='collection-list-get-more'>
 				<img src={getMoreImage} alt='get-more' />
