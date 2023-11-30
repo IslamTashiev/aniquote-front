@@ -111,3 +111,41 @@
 		cursor: pointer;
 	}
 }
+
+.collection-modal {
+	&-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 8px;
+	}
+
+	&-input {
+		border-radius: 10px !important;
+		margin-bottom: 12px;
+	}
+
+	&-dropped-menu {
+		display: flex;
+		flex-direction: column;
+		background-color: #3c3c3c;
+		border-radius: 10px;
+		height: 0;
+		overflow: hidden;
+		transition: 0.3s all ease;
+
+		li {
+			padding: 10px 20px;
+			cursor: pointer;
+			border-radius: 10px;
+
+			&:hover {
+				background-color: #444444;
+			}
+		}
+	}
+
+	&-close-icon {
+		cursor: pointer;
+	}
+}
