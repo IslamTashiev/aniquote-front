@@ -18,6 +18,12 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const { searchByTitle, foundedTitles } = usePagesDataStore((state) => state);
 	const navigate = useNavigate();
 
+	const handleCloseModal = () => {
+		onChangeActiveState();
+		setSearchText("");
+		setActualValue("");
+	};
+
 	useEffect(() => {
 		setActualValue(searchText);
 	}, [searchText, setActualValue]);
@@ -29,10 +35,10 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	}, [debounceValue, searchByTitle]);
 
 	return (
-		<Modal isActive={isActive} onChangeActiveState={onChangeActiveState}>
+		<Modal isActive={isActive} onChangeActiveState={handleCloseModal}>
 			<div className='collection-modal-header'>
-				<h3 className='collection-modal-title'>Search for your title</h3>
-				<div onClick={onChangeActiveState} className='collection-modal-close-icon'>
+				<h3 className='collection-modal-title'>Find your title</h3>
+				<div onClick={handleCloseModal} className='collection-modal-close-icon'>
 					<CloseIcon />
 				</div>
 			</div>
