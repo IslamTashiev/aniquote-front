@@ -24,3 +24,7 @@ export const getCollectionsDetail = async (animeTitle: string) => {
 	const { data } = await axios.post(API_URL + "anime", { animeTitle });
 	return data as ICollectionItem[];
 };
+export const searchByTitle = async (title: string) => {
+	const { data } = await axios(API_URL + "search-anime", { params: { title } });
+	return data as ICollectionItem[];
+};

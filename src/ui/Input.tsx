@@ -47,30 +47,13 @@ const Input = (props: InputProps) => {
 				{label}
 				{isRequired && <span className='required-star'>*</span>}
 				{isTextArea && (
-					<textarea
-						placeholder={placeholder}
-						onChange={(e) => onChangeValue(e.target.value)}
-						className={clsx("textarea", { [textareaStyles]: !!textareaStyles })}
-						value={value}
-					></textarea>
+					<textarea placeholder={placeholder} onChange={(e) => onChangeValue(e.target.value)} className={clsx("textarea", { [textareaStyles]: !!textareaStyles })} value={value}></textarea>
 				)}
-				{!isTextArea && (
-					<input
-						placeholder={placeholder}
-						type={type}
-						onChange={(e) => handleChangeInputValue(e)}
-						className={clsx("input", { [inputStyles]: !!inputStyles })}
-						value={value}
-					/>
-				)}
+				{!isTextArea && <input placeholder={placeholder} type={type} onChange={(e) => handleChangeInputValue(e)} className={clsx("input", { [inputStyles]: !!inputStyles })} value={value} />}
 				{type === "file" && (
 					<div className='input file'>
 						{!files && <span className='file-input-placeholder'>No file chosen</span>}
-						{files && (
-							<span className='file-input-placeholder chosen'>
-								{files[0].name.slice(0, 20) + " ... " + files[0].type}
-							</span>
-						)}
+						{files && <span className='file-input-placeholder chosen'>{files[0].name.slice(0, 20) + " ... " + files[0].type}</span>}
 					</div>
 				)}
 			</label>
