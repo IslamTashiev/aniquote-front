@@ -6,6 +6,7 @@ import { ReactComponent as CloseIcon } from "../../../assets/Close.svg";
 import { ReactComponent as HistoryIcon } from "../../../assets/History.svg";
 import usePagesDataStore from "../../../store/pagesData/pagesData";
 import { useNavigate } from "react-router-dom";
+import { ICollectionItem } from "../../../models";
 
 interface CollectionSearchModalProps {
 	isActive: boolean;
@@ -14,6 +15,8 @@ interface CollectionSearchModalProps {
 
 const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSearchModalProps) => {
 	const [searchText, setSearchText] = useState<string>("");
+	const [history, setHistory] = useState<ICollectionItem[]>([]);
+	const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(false);
 	const { debounceValue, setActualValue } = useDebounce("", 2000);
 
 	const { searchByTitle, foundedTitles } = usePagesDataStore((state) => state);
@@ -26,6 +29,32 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const clearInput = () => {
 		setSearchText("");
 		setActualValue("");
+	};
+	const handleClickFoundedElem = (item: ICollectionItem) => {
+		navigate("/selections/" + item.anime);
+
+		const history = localStorage.getItem("searchHistory");
+
+		if (!history) {
+			localStorage.setItem("searchHistory", JSON.stringify([item]));
+			return;
+		}
+
+		const parsedHistory = JSON.parse(history);
+		const mergedHistory = [...parsedHistory, item];
+		localStorage.setItem("searchHistory", JSON.stringify(mergedHistory));
+	};
+	const handleGetHistory = () => {
+		const history = localStorage.getItem("searchHistory");
+
+		if (!history) {
+			setHistoryIsEmpty(true);
+			return;
+		}
+
+		const parsedHistory = JSON.parse(history);
+		setHistory(parsedHistory);
+		setHistoryIsEmpty(false);
 	};
 
 	useEffect(() => {
@@ -52,16 +81,25 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 					<button onClick={clearInput} className='collection-modal-btn btn'>
 						<CloseIcon width={18} height={18} />
 					</button>
-					<button className='collection-modal-btn btn'>
+					<button onClick={handleGetHistory} className='collection-modal-btn btn'>
 						<HistoryIcon />
 					</button>
 				</div>
 				<ul className='collection-modal-dropped-menu' style={{ height: foundedTitles.length * 40 }}>
 					{foundedTitles.map((item) => (
-						<li onClick={() => navigate("/selections/" + item.anime)} key={item._id}>
+						<li onClick={() => handleClickFoundedElem(item)} key={item._id}>
 							{item.anime}
 						</li>
 					))}
+				</ul>
+				<ul className='collection-modal-dropped-menu' style={{ height: history.length * 40 }}>
+					{!historyIsEmpty &&
+						history.map((item) => (
+							<li onClick={() => handleClickFoundedElem(item)} key={item._id}>
+								{item.anime}
+							</li>
+						))}
+					{historyIsEmpty && <li>Your history is empty</li>}
 				</ul>
 			</div>
 		</Modal>
