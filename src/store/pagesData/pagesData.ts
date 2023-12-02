@@ -18,6 +18,7 @@ type IPagesData = {
 	getCollectionDetailData: (animeTitle: string) => void;
 	getCollectionData: (page: number) => void;
 	searchByTitle: (title: string) => void;
+	clearTitles: () => void;
 };
 
 const usePagesDataStore = create<IPagesData>((set, get) => ({
@@ -76,6 +77,7 @@ const usePagesDataStore = create<IPagesData>((set, get) => ({
 		const data = await PagesDataActions.searchByTitle(title);
 		set({ foundedTitles: data });
 	},
+	clearTitles: () => set({ foundedTitles: [] }),
 }));
 
 export default usePagesDataStore;

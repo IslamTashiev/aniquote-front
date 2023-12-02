@@ -20,7 +20,7 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const [showHistory, setShowHistory] = useState<boolean>(false);
 	const { debounceValue, setActualValue } = useDebounce("", 2000);
 
-	const { searchByTitle, foundedTitles } = usePagesDataStore((state) => state);
+	const { searchByTitle, foundedTitles, clearTitles } = usePagesDataStore((state) => state);
 	const navigate = useNavigate();
 
 	const handleCloseModal = () => {
@@ -30,9 +30,11 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const clearInput = () => {
 		setSearchText("");
 		setActualValue("");
+		clearTitles();
 	};
 	const handleClickFoundedElem = (item: ICollectionItem) => {
 		navigate("/selections/" + item.anime);
+		clearTitles();
 
 		const history = localStorage.getItem("searchHistory");
 
@@ -41,8 +43,9 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 			return;
 		}
 
-		const parsedHistory = JSON.parse(history);
-		const mergedHistory = [...parsedHistory, item];
+		const parsedHistory = JSON.parse(history) as ICollectionItem[];
+		const filteredHistory = parsedHistory.filter((filteredItem) => filteredItem._id !== item._id);
+		const mergedHistory = [...filteredHistory, item];
 		localStorage.setItem("searchHistory", JSON.stringify(mergedHistory));
 	};
 	const handleGetHistory = () => {
