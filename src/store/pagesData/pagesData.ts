@@ -13,6 +13,7 @@ type IPagesData = {
 	collectionDetailDataIsLoaded: boolean;
 	loadedCollectionPages: number | null;
 	foundedTitles: ICollectionItem[];
+	titlesIsLoaded: boolean;
 	getMainCarouselItems: () => void;
 	getAnimeCards: () => void;
 	getCollectionDetailData: (animeTitle: string) => void;
@@ -32,6 +33,7 @@ const usePagesDataStore = create<IPagesData>((set, get) => ({
 	collectionDetailDataIsLoaded: false,
 	loadedCollectionPages: null,
 	foundedTitles: [],
+	titlesIsLoaded: false,
 	getMainCarouselItems: async () => {
 		set({ mainCarouselDataIsLoaded: false });
 		const data = await PagesDataActions.getMainCarouselItems();
@@ -74,8 +76,9 @@ const usePagesDataStore = create<IPagesData>((set, get) => ({
 		}
 	},
 	searchByTitle: async (title: string) => {
+		set({ titlesIsLoaded: false });
 		const data = await PagesDataActions.searchByTitle(title);
-		set({ foundedTitles: data });
+		set({ foundedTitles: data, titlesIsLoaded: true });
 	},
 	clearTitles: () => set({ foundedTitles: [] }),
 }));

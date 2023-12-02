@@ -7,6 +7,7 @@ import { ReactComponent as HistoryIcon } from "../../../assets/History.svg";
 import usePagesDataStore from "../../../store/pagesData/pagesData";
 import { useNavigate } from "react-router-dom";
 import { ICollectionItem } from "../../../models";
+import CollectionModalListLoader from "./CollectionModalListLoader";
 
 interface CollectionSearchModalProps {
 	isActive: boolean;
@@ -20,7 +21,7 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const [showHistory, setShowHistory] = useState<boolean>(false);
 	const { debounceValue, setActualValue } = useDebounce("", 1000);
 
-	const { searchByTitle, foundedTitles, clearTitles } = usePagesDataStore((state) => state);
+	const { searchByTitle, foundedTitles, clearTitles, titlesIsLoaded } = usePagesDataStore((state) => state);
 	const navigate = useNavigate();
 
 	const handleCloseModal = () => {
@@ -108,7 +109,7 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 						<HistoryIcon />
 					</button>
 				</div>
-				{renderList(foundedTitles)}
+				{titlesIsLoaded ? renderList(foundedTitles) : debounceValue ? <CollectionModalListLoader /> : null}
 				<div className='collection-modal-history'>
 					{showHistory ? <h4 className='collection-modal-history-title'>{historyIsEmpty ? "Your histry is empty" : "History"}</h4> : null}
 					{renderList(history)}
