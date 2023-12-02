@@ -18,7 +18,7 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const [history, setHistory] = useState<ICollectionItem[]>([]);
 	const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(false);
 	const [showHistory, setShowHistory] = useState<boolean>(false);
-	const { debounceValue, setActualValue } = useDebounce("", 2000);
+	const { debounceValue, setActualValue } = useDebounce("", 1000);
 
 	const { searchByTitle, foundedTitles, clearTitles } = usePagesDataStore((state) => state);
 	const navigate = useNavigate();
