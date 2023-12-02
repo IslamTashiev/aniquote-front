@@ -17,6 +17,7 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 	const [searchText, setSearchText] = useState<string>("");
 	const [history, setHistory] = useState<ICollectionItem[]>([]);
 	const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(false);
+	const [showHistory, setShowHistory] = useState<boolean>(false);
 	const { debounceValue, setActualValue } = useDebounce("", 2000);
 
 	const { searchByTitle, foundedTitles } = usePagesDataStore((state) => state);
@@ -45,17 +46,36 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 		localStorage.setItem("searchHistory", JSON.stringify(mergedHistory));
 	};
 	const handleGetHistory = () => {
-		const history = localStorage.getItem("searchHistory");
-
-		if (!history) {
-			setHistoryIsEmpty(true);
-			return;
-		}
-
-		const parsedHistory = JSON.parse(history);
-		setHistory(parsedHistory);
-		setHistoryIsEmpty(false);
+		toggleShowHistory();
+		getHistory();
 	};
+	const getHistory = () => {
+		if (!showHistory) {
+			const history = localStorage.getItem("searchHistory");
+
+			if (!history) {
+				setHistoryIsEmpty(true);
+				return;
+			}
+
+			const parsedHistory = JSON.parse(history);
+			setHistory(parsedHistory);
+			setHistoryIsEmpty(false);
+		} else {
+			setHistory([]);
+		}
+	};
+	const toggleShowHistory = () => setShowHistory(!showHistory);
+
+	const renderList = (list: ICollectionItem[]) => (
+		<ul className='collection-modal-dropped-menu' style={{ height: list.length * 40 }}>
+			{list.map((item) => (
+				<li onClick={() => handleClickFoundedElem(item)} key={item._id}>
+					{item.anime}
+				</li>
+			))}
+		</ul>
+	);
 
 	useEffect(() => {
 		setActualValue(searchText);
@@ -85,22 +105,11 @@ const CollectionSearchModal = ({ isActive, onChangeActiveState }: CollectionSear
 						<HistoryIcon />
 					</button>
 				</div>
-				<ul className='collection-modal-dropped-menu' style={{ height: foundedTitles.length * 40 }}>
-					{foundedTitles.map((item) => (
-						<li onClick={() => handleClickFoundedElem(item)} key={item._id}>
-							{item.anime}
-						</li>
-					))}
-				</ul>
-				<ul className='collection-modal-dropped-menu' style={{ height: history.length * 40 }}>
-					{!historyIsEmpty &&
-						history.map((item) => (
-							<li onClick={() => handleClickFoundedElem(item)} key={item._id}>
-								{item.anime}
-							</li>
-						))}
-					{historyIsEmpty && <li>Your history is empty</li>}
-				</ul>
+				{renderList(foundedTitles)}
+				<div className='collection-modal-history'>
+					{showHistory ? <h4 className='collection-modal-history-title'>{historyIsEmpty ? "Your histry is empty" : "History"}</h4> : null}
+					{renderList(history)}
+				</div>
 			</div>
 		</Modal>
 	);
