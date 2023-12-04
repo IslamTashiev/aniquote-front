@@ -31,3 +31,13 @@ export interface ICollectionData {
 	page: string;
 	pages: number;
 }
+
+export interface IUserDataResponse {
+	_id: string;
+	email: string;
+	fullName: string;
+}
+export interface IUserDataRequest {
+	email: string;
+	password: string;
+}

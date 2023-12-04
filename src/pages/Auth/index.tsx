@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../ui/Input";
 import { ReactComponent as GoogleIcon } from "../../assets/Google.svg";
 import { ReactComponent as HideIcon } from "../../assets/Hide.svg";
 import { ReactComponent as ShowIcon } from "../../assets/Show.svg";
+import { useParams } from "react-router-dom";
+import useUserStore from "../../store/user/userStore";
 
 import "./_style.scss";
-import { useParams } from "react-router-dom";
 
 const Auth = () => {
 	const [email, setEmail] = useState<string>("");
@@ -13,6 +14,7 @@ const Auth = () => {
 	const [nickName, setNickName] = useState<string>("");
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
+	const { login, userData } = useUserStore((state) => state);
 	const { authType } = useParams();
 	const isRegisterPage = authType === "register";
 
@@ -20,11 +22,14 @@ const Auth = () => {
 		e.preventDefault();
 		setShowPassword(!showPassword);
 	};
-
+	const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		login({ email, password });
+	};
 	const renderAuthLayout = (
 		<div className='auth'>
 			<h1 className='auth-title'>Register</h1>
-			<form className='auth-form'>
+			<form onSubmit={handleSubmit} className='auth-form'>
 				<Input label='Email' value={email} onChangeValue={(value) => setEmail(value)} placeholder='example@gmail.com' type='email' isRequired={true} />
 				<div className='auth-password'>
 					<Input
@@ -42,10 +47,16 @@ const Auth = () => {
 				</div>
 				{isRegisterPage ? <Input label='Nick Name' value={nickName} onChangeValue={(value) => setNickName(value)} placeholder='Enter your nick name' type='text' isRequired={true} /> : null}
 
-				<button className='btn'>{!isRegisterPage ? "Register" : "Login"}</button>
+				<button type='submit' className='btn'>
+					{isRegisterPage ? "Register" : "Login"}
+				</button>
 			</form>
 		</div>
 	);
+
+	useEffect(() => {
+		console.log(userData);
+	}, [userData]);
 
 	return (
 		<div className='auth-page'>
