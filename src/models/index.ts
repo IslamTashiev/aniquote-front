@@ -42,3 +42,17 @@ export interface IUserDataRequest {
 	password: string;
 	fullName?: string;
 }
+
+export interface IQuoteAuthor {
+	_id: string;
+	email: string;
+	fullName: string;
+}
+export interface IQuoteComment {
+	_id: string;
+	text: string;
+	author: IQuoteAuthor;
+	quoteId: string;
+	createdAt: string;
+	updatedAt: string;
+}

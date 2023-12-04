@@ -4,8 +4,13 @@ import usePagesDataStore from "../../../store/pagesData/pagesData";
 import QuotesListLoader from "./QuotesListLoader";
 import { IQuote } from "../../../models";
 
+interface IFormatedQuote {
+	quote: string;
+	quoteId: string;
+}
+
 interface IFormatedCollection {
-	quotes: string[];
+	quotes: IFormatedQuote[];
 	character: string;
 }
 
@@ -31,7 +36,7 @@ const QuotesList = () => {
 	useEffect(() => {
 		if (collectionDetailDataIsLoaded) {
 			const filteredQuotes = filterUniqueByField(collectionDetailData[0].quotes).map((name) => {
-				const filteredByCharacter = collectionDetailData[0].quotes.filter((item) => item.character === name).map((item) => item.quote);
+				const filteredByCharacter = collectionDetailData[0].quotes.filter((item) => item.character === name).map((item) => ({ quote: item.quote, quoteId: item._id }));
 				const mergedQuotes = filteredByCharacter.flat();
 				return { quotes: mergedQuotes, character: name } as IFormatedCollection;
 			});
@@ -53,7 +58,7 @@ const QuotesList = () => {
 						<h4 className='quotes-group-title'>{item.character}</h4>
 						<div className='quotes'>
 							{item.quotes.map((item) => (
-								<QuoteItem key={item} quote={item} />
+								<QuoteItem key={item.quoteId} quote={item.quote} quoteId={item.quoteId} />
 							))}
 						</div>
 					</div>
