@@ -18,6 +18,10 @@ const useUserStore = create<IUserStore>((set) => ({
 		const data = await UserActions.getUserData();
 		set({ userData: data });
 	},
+	logout: () => {
+		localStorage.removeItem("token");
+		set({ userData: null });
+	},
 }));
 
 export default useUserStore;
