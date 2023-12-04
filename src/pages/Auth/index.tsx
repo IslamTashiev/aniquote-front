@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../../ui/Input";
 import { ReactComponent as GoogleIcon } from "../../assets/Google.svg";
 import { ReactComponent as HideIcon } from "../../assets/Hide.svg";
@@ -14,7 +14,7 @@ const Auth = () => {
 	const [nickName, setNickName] = useState<string>("");
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
-	const { login, userData, register, isUserLoggedIn } = useUserStore((state) => state);
+	const { login, register, isUserLoggedIn } = useUserStore((state) => state);
 	const { authType } = useParams();
 	const isRegisterPage = authType === "register";
 
@@ -57,10 +57,6 @@ const Auth = () => {
 			</form>
 		</div>
 	);
-
-	useEffect(() => {
-		console.log(userData);
-	}, [userData]);
 
 	if (isUserLoggedIn) {
 		return <Navigate to='/' />;
