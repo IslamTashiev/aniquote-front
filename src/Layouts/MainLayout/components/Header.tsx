@@ -43,7 +43,20 @@ const Header = () => {
 				</div>
 				<div className='header-interface'>
 					{isUserLoggedIn ? (
-						<></>
+						<div className='header-interface-user-info'>
+							<img className='user-avatar' src='https://pushinka.top/uploads/posts/2023-04/1680815574_pushinka-top-p-dvigayushchiesya-avatarki-anime-avatarka-k-62.jpg' alt='user-avatar' />
+							<div className='user-data'>
+								<span className='user-name'>{userData?.fullName}</span>
+								<span className='user-email'>{userData?.email}</span>
+							</div>
+
+							<div className='user-interface active'>
+								<ul className='user-menu'>
+									<li className='user-menu-item'>My favorites</li>
+									<li className='user-menu-item logout'>Logout</li>
+								</ul>
+							</div>
+						</div>
 					) : (
 						<div className='header-interface-auth'>
 							<button onClick={() => navigate("/auth/login")} className='btn btn-text header-interface-auth-login'>
