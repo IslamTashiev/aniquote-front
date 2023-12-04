@@ -3,7 +3,7 @@ import Input from "../../ui/Input";
 import { ReactComponent as GoogleIcon } from "../../assets/Google.svg";
 import { ReactComponent as HideIcon } from "../../assets/Hide.svg";
 import { ReactComponent as ShowIcon } from "../../assets/Show.svg";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import useUserStore from "../../store/user/userStore";
 
 import "./_style.scss";
@@ -14,7 +14,7 @@ const Auth = () => {
 	const [nickName, setNickName] = useState<string>("");
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
-	const { login, userData, register } = useUserStore((state) => state);
+	const { login, userData, register, isUserLoggedIn } = useUserStore((state) => state);
 	const { authType } = useParams();
 	const isRegisterPage = authType === "register";
 
@@ -61,6 +61,10 @@ const Auth = () => {
 	useEffect(() => {
 		console.log(userData);
 	}, [userData]);
+
+	if (isUserLoggedIn) {
+		return <Navigate to='/' />;
+	}
 
 	return (
 		<div className='auth-page'>

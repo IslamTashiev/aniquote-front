@@ -4,6 +4,7 @@ import * as UserActions from "./userActions";
 
 type IUserStore = {
 	userData: IUserDataResponse | null;
+	isUserLoggedIn: boolean;
 	login: (params: IUserDataRequest) => void;
 	getMe: () => void;
 	logout: () => void;
@@ -12,21 +13,22 @@ type IUserStore = {
 
 const useUserStore = create<IUserStore>((set) => ({
 	userData: null,
+	isUserLoggedIn: false,
 	login: async (params) => {
 		const data = await UserActions.login(params);
-		set({ userData: data });
+		set({ userData: data, isUserLoggedIn: true });
 	},
 	getMe: async () => {
 		const data = await UserActions.getUserData();
-		set({ userData: data });
+		set({ userData: data, isUserLoggedIn: Boolean(data) });
 	},
 	logout: () => {
 		localStorage.removeItem("token");
-		set({ userData: null });
+		set({ userData: null, isUserLoggedIn: false });
 	},
 	register: async (params: IUserDataRequest) => {
 		const data = await UserActions.register(params);
-		set({ userData: data });
+		set({ userData: data, isUserLoggedIn: true });
 	},
 }));
 
