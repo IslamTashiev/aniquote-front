@@ -1,18 +1,16 @@
-import axios from "axios";
+import axios from "../../axios";
 import { IAnimeCard, ICollectionItem, IMainCarouselData } from "../../models";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/";
-
 export const getMainCarouselItems = async () => {
-	const { data } = await axios(API_URL + "carousel-items");
+	const { data } = await axios("/carousel-items");
 	return data as IMainCarouselData[];
 };
 export const getAnimeCards = async () => {
-	const { data } = await axios(API_URL + "anime-cards");
+	const { data } = await axios("/anime-cards");
 	return data as IAnimeCard[];
 };
 export const getCollections = async (page: number) => {
-	const { data } = await axios(API_URL + "anime-quotes", {
+	const { data } = await axios("/anime-quotes", {
 		params: {
 			page,
 			limit: 8,
@@ -21,10 +19,10 @@ export const getCollections = async (page: number) => {
 	return data.docs as ICollectionItem[];
 };
 export const getCollectionsDetail = async (animeTitle: string) => {
-	const { data } = await axios.post(API_URL + "anime", { animeTitle });
+	const { data } = await axios.post("/anime", { animeTitle });
 	return data as ICollectionItem[];
 };
 export const searchByTitle = async (title: string) => {
-	const { data } = await axios(API_URL + "search-anime", { params: { title } });
+	const { data } = await axios("/search-anime", { params: { title } });
 	return data as ICollectionItem[];
 };
