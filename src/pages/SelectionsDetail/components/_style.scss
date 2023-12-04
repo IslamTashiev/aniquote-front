@@ -66,16 +66,19 @@
 		}
 	}
 
-	&-comments {
-		height: 0;
+	.comments-wrapper {
+		margin-top: 12px;
 		overflow: hidden;
+		transition: all 0.3s ease;
+	}
+
+	&-comments {
+		border-top: 1px solid #9191911f;
 	}
 
 	.no-comments {
 		text-align: center;
 		width: 100%;
-		margin-top: 12px;
-		border-top: 1px solid #919191;
 
 		&-image {
 			width: 200px;
@@ -96,6 +99,7 @@
 		gap: 4px;
 		width: 100%;
 		justify-content: space-between;
+		padding: 4px;
 
 		&-input {
 			width: 88%;
@@ -112,8 +116,8 @@
 }
 .quotes-group {
 	margin-top: 12px;
-	padding-bottom: 12px;
-	border-bottom: 1px solid #919191;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #9191911f;
 
 	&-title {
 		color: #919191;
