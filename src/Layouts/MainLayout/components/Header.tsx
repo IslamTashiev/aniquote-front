@@ -9,9 +9,10 @@ import useUserStore from "../../../store/user/userStore";
 
 const Header = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false);
+	const [showUserData, setShowUserData] = useState<boolean>(false);
 
 	const navigate = useNavigate();
-	const { userData, isUserLoggedIn } = useUserStore((state) => state);
+	const { userData, isUserLoggedIn, logout } = useUserStore((state) => state);
 
 	const handleSwitchMobileMenuState = () => {
 		setMobileMenu(!mobileMenu);
@@ -43,17 +44,21 @@ const Header = () => {
 				</div>
 				<div className='header-interface'>
 					{isUserLoggedIn ? (
-						<div className='header-interface-user-info'>
+						<div onClick={() => setShowUserData(!showUserData)} className='header-interface-user-info'>
 							<img className='user-avatar' src='https://pushinka.top/uploads/posts/2023-04/1680815574_pushinka-top-p-dvigayushchiesya-avatarki-anime-avatarka-k-62.jpg' alt='user-avatar' />
 							<div className='user-data'>
 								<span className='user-name'>{userData?.fullName}</span>
 								<span className='user-email'>{userData?.email}</span>
 							</div>
 
-							<div className='user-interface active'>
+							<div className={clsx("user-interface", { active: showUserData })}>
 								<ul className='user-menu'>
-									<li className='user-menu-item'>My favorites</li>
-									<li className='user-menu-item logout'>Logout</li>
+									<li onClick={() => navigate("/favourites")} className='user-menu-item'>
+										My favorites
+									</li>
+									<li onClick={logout} className='user-menu-item logout'>
+										Logout
+									</li>
 								</ul>
 							</div>
 						</div>
