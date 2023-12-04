@@ -12,7 +12,10 @@ function App() {
 	}, [pathname]);
 
 	useEffect(() => {
-		getMe();
+		const token = localStorage.getItem("token");
+		if (token) {
+			getMe();
+		}
 	}, [getMe]);
 
 	return <Routes />;
