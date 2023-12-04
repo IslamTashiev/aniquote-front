@@ -14,7 +14,7 @@ const Auth = () => {
 	const [nickName, setNickName] = useState<string>("");
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
-	const { login, userData } = useUserStore((state) => state);
+	const { login, userData, register } = useUserStore((state) => state);
 	const { authType } = useParams();
 	const isRegisterPage = authType === "register";
 
@@ -24,7 +24,11 @@ const Auth = () => {
 	};
 	const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		login({ email, password });
+		if (isRegisterPage) {
+			register({ email, password, fullName: nickName });
+		} else {
+			login({ email, password });
+		}
 	};
 	const renderAuthLayout = (
 		<div className='auth'>

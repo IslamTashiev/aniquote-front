@@ -12,3 +12,10 @@ export const getUserData = async () => {
 	const { data } = await axios.get("/auth/me");
 	return data;
 };
+export const register = async (params: IUserDataRequest) => {
+	const { data } = await axios.post("/auth/register", params);
+	if (data && "token" in data) {
+		localStorage.setItem("token", data.token);
+	}
+	return data;
+};

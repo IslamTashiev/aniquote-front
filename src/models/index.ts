@@ -40,4 +40,5 @@ export interface IUserDataResponse {
 export interface IUserDataRequest {
 	email: string;
 	password: string;
+	fullName?: string;
 }

@@ -6,6 +6,8 @@ type IUserStore = {
 	userData: IUserDataResponse | null;
 	login: (params: IUserDataRequest) => void;
 	getMe: () => void;
+	logout: () => void;
+	register: (params: IUserDataRequest) => void;
 };
 
 const useUserStore = create<IUserStore>((set) => ({
@@ -21,6 +23,10 @@ const useUserStore = create<IUserStore>((set) => ({
 	logout: () => {
 		localStorage.removeItem("token");
 		set({ userData: null });
+	},
+	register: async (params: IUserDataRequest) => {
+		const data = await UserActions.register(params);
+		set({ userData: data });
 	},
 }));
 
