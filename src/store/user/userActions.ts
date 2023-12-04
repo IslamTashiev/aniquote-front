@@ -8,3 +8,7 @@ export const login = async (params: IUserDataRequest) => {
 	}
 	return data;
 };
+export const getUserData = async () => {
+	const { data } = await axios.get("/auth/me");
+	return data;
+};
