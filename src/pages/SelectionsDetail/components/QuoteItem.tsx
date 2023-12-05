@@ -7,6 +7,7 @@ import Input from "../../../ui/Input";
 import { IQuoteComment } from "../../../models";
 import axios from "../../../axios";
 import useUserStore from "../../../store/user/userStore";
+import QuoteCommentItem from "./QuoteCommentItem";
 
 interface QuoteItemProps {
 	quote: string;
@@ -42,8 +43,8 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 			author: userData?._id,
 			quoteId: quoteId,
 		};
-
 		await axios.post("/create/commit", submitedData);
+		setCommentText("");
 		fetchComments();
 	};
 
@@ -66,6 +67,12 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 			{showComments && (
 				<div className='comments-wrapper'>
 					<div ref={commentsBlockRef} className='quote-item-comments'>
+						<form onSubmit={handleSubmitComment} className='comments-form'>
+							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
+							<button type='submit' className='btn'>
+								Leave comment
+							</button>
+						</form>
 						{commentsIsLoaded ? (
 							!Boolean(comments?.length) ? (
 								<div className='no-comments'>
@@ -74,19 +81,20 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 									<p className='no-comments-subtitle'>Trailblaze the Discussion: Take the Lead in the Absence of Comments and Add Your Voice</p>
 								</div>
 							) : (
-								<div>Loaded data</div>
+								<div className='comments-list'>
+									<h2 className='comments-list-title'>
+										{comments?.length} comment{comments?.length === 1 ? "" : "s"}
+									</h2>
+									{comments?.map((item) => (
+										<QuoteCommentItem key={item._id} info={item} />
+									))}
+								</div>
 							)
 						) : (
 							<div className='loader-wrapper'>
 								<span className='loader'></span>
 							</div>
 						)}
-						<form onSubmit={handleSubmitComment} className='comments-form'>
-							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
-							<button type='submit' className='btn'>
-								Leave comment
-							</button>
-						</form>
 					</div>
 				</div>
 			)}
