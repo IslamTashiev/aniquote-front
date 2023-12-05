@@ -1,11 +1,13 @@
 import clsx from "clsx";
 
+import { useState, useEffect } from "react";
 import QuoteText from "./QuoteText";
 import { ReactComponent as FavoiriteIcon } from "../assets/Favoirite.svg";
-
-import "./_style.scss";
 import { IMainCarouselData } from "../models";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../store/user/userStore";
+
+import "./_style.scss";
 
 interface MainCarauselItemProps {
 	info: IMainCarouselData;
@@ -15,7 +17,22 @@ interface MainCarauselItemProps {
 }
 
 const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCarauselItemProps) => {
+	const [isQuoteInFavourites, setIsQuoteInFavourites] = useState<boolean>(false);
+
 	const navigate = useNavigate();
+	const { userData, addToFavourites } = useUserStore((state) => state);
+
+	const handleFavourite = () => {
+		setIsQuoteInFavourites(!isQuoteInFavourites);
+		addToFavourites(info._id);
+	};
+
+	useEffect(() => {
+		if (userData) {
+			const isQuoteInUserFavourites = userData.favourites.find((item) => item === info._id);
+			setIsQuoteInFavourites(Boolean(isQuoteInUserFavourites));
+		}
+	}, [userData, info]);
 
 	return (
 		<div style={{ background: `url(${info.anime_bckg}) center` }} className='main-carousel-item'>
@@ -26,8 +43,8 @@ const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCaraus
 					<button className='btn see-more' onClick={() => navigate("/selections/" + info.anime)}>
 						See more
 					</button>
-					<button className='btn btn-icon'>
-						<FavoiriteIcon />
+					<button onClick={handleFavourite} className='btn btn-icon'>
+						<FavoiriteIcon className={isQuoteInFavourites ? "active" : ""} />
 					</button>
 				</div>
 				<div className='pagination'>

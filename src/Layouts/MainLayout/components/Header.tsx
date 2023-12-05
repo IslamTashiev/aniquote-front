@@ -4,12 +4,12 @@ import clsx from "clsx";
 
 import { ReactComponent as Logo } from "../../../assets/Logo.svg";
 import { ReactComponent as LogoMobile } from "../../../assets/Logo-mobile.svg";
+import { ReactComponent as FavoiriteIcon } from "../../../assets/Favoirite.svg";
 import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/user/userStore";
 
 const Header = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false);
-	const [showUserData, setShowUserData] = useState<boolean>(false);
 
 	const navigate = useNavigate();
 	const { userData, isUserLoggedIn, logout } = useUserStore((state) => state);
@@ -44,23 +44,14 @@ const Header = () => {
 				</div>
 				<div className='header-interface'>
 					{isUserLoggedIn ? (
-						<div onClick={() => setShowUserData(!showUserData)} className='header-interface-user-info'>
+						<div className='header-interface-user-info'>
 							<img className='user-avatar' src={userData?.avatar} alt='user-avatar' />
-							<div className='user-data'>
-								<span className='user-name'>{userData?.fullName}</span>
-								<span className='user-email'>{userData?.email}</span>
-							</div>
-
-							<div className={clsx("user-interface", { active: showUserData })}>
-								<ul className='user-menu'>
-									<li onClick={() => navigate("/favourites")} className='user-menu-item'>
-										My favorites
-									</li>
-									<li onClick={logout} className='user-menu-item logout'>
-										Logout
-									</li>
-								</ul>
-							</div>
+							<button onClick={() => navigate("/favourites")} className='btn btn-text favourite-btn'>
+								<FavoiriteIcon />
+							</button>
+							<button onClick={logout} className='btn btn-text'>
+								Logout
+							</button>
 						</div>
 					) : (
 						<div className='header-interface-auth'>

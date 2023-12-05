@@ -35,6 +35,11 @@
 		.see-more {
 			padding: 12px 66px;
 		}
+
+		.btn-icon svg.active path {
+			fill: #e83232;
+			stroke: #e83232;
+		}
 	}
 }
 .quote {
