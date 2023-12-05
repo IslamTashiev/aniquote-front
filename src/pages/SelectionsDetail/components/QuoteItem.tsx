@@ -22,7 +22,7 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 	const [isQuoteInFavourites, setIsQuoteInFavourites] = useState<boolean>(false);
 
 	const commentsBlockRef = useRef<HTMLDivElement>(null);
-	const { userData, setUserData } = useUserStore((state) => state);
+	const { userData, addToFavourites } = useUserStore((state) => state);
 
 	const getCommentsById = () => {
 		setShowComments(!showComments);
@@ -50,8 +50,7 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 	};
 	const handleSaveToFavouriets = async () => {
 		setIsQuoteInFavourites(!isQuoteInFavourites);
-		const { data } = await axios.post("/add-to-favourites", { quoteId });
-		setUserData(data);
+		addToFavourites(quoteId);
 	};
 
 	useEffect(() => {

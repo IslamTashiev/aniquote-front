@@ -26,3 +26,7 @@ export const register = async (params: IUserDataRequest) => {
 	}
 	return data;
 };
+export const addToFavourites = async (quoteId: string) => {
+	const { data } = await axios.post("/add-to-favourites", { quoteId });
+	return data;
+};

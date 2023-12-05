@@ -9,7 +9,7 @@ type IUserStore = {
 	getMe: () => void;
 	logout: () => void;
 	register: (params: IUserDataRequest) => void;
-	setUserData: (userData: IQuoteAuthor) => void;
+	addToFavourites: (quoteId: string) => void;
 };
 
 const useUserStore = create<IUserStore>((set) => ({
@@ -31,7 +31,10 @@ const useUserStore = create<IUserStore>((set) => ({
 		const data = await UserActions.register(params);
 		set({ userData: data, isUserLoggedIn: true });
 	},
-	setUserData: (userData) => set({ userData }),
+	addToFavourites: async (quoteId: string) => {
+		const data = await UserActions.addToFavourites(quoteId);
+		set({ userData: data });
+	},
 }));
 
 export default useUserStore;
