@@ -126,3 +126,38 @@
 		cursor: pointer;
 	}
 }
+.comment-item {
+	display: flex;
+	gap: 8px;
+	padding: 12px 0;
+
+	&-content {
+		border-bottom: 1px solid #9191911f;
+		padding-bottom: 12px;
+	}
+
+	&-user {
+		&-avatar {
+			width: 35px;
+			height: 35px;
+			border-radius: 35px;
+		}
+
+		&-data {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			margin-bottom: 4px;
+		}
+
+		&-name {
+			font-weight: 700;
+			font-size: 12px;
+		}
+
+		&-createdAt {
+			font-size: 12px;
+			color: #91919185;
+		}
+	}
+}
