@@ -8,7 +8,7 @@ interface QuoteCommentItemProps {
 const QuoteCommentItem = ({ info }: QuoteCommentItemProps) => {
 	return (
 		<div className='comment-item'>
-			<img className='comment-item-user-avatar' src='https://pushinka.top/uploads/posts/2023-04/1680815574_pushinka-top-p-dvigayushchiesya-avatarki-anime-avatarka-k-62.jpg' alt='user-avatar' />
+			<img className='comment-item-user-avatar' src={info.author.avatar} alt='user-avatar' />
 			<div className='comment-item-content'>
 				<div className='comment-item-user-data'>
 					<span className='comment-item-user-name'>{info.author.fullName}</span>

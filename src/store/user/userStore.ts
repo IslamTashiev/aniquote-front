@@ -1,9 +1,9 @@
 import create from "zustand";
-import { IUserDataRequest, IUserDataResponse } from "../../models";
+import { IQuoteAuthor, IUserDataRequest } from "../../models";
 import * as UserActions from "./userActions";
 
 type IUserStore = {
-	userData: IUserDataResponse | null;
+	userData: IQuoteAuthor | null;
 	isUserLoggedIn: boolean;
 	login: (params: IUserDataRequest) => void;
 	getMe: () => void;

@@ -47,6 +47,8 @@ export interface IQuoteAuthor {
 	_id: string;
 	email: string;
 	fullName: string;
+	avatar: string;
+	favourites: string[];
 }
 export interface IQuoteComment {
 	_id: string;

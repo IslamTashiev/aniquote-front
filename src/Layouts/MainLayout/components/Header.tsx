@@ -45,7 +45,7 @@ const Header = () => {
 				<div className='header-interface'>
 					{isUserLoggedIn ? (
 						<div onClick={() => setShowUserData(!showUserData)} className='header-interface-user-info'>
-							<img className='user-avatar' src='https://pushinka.top/uploads/posts/2023-04/1680815574_pushinka-top-p-dvigayushchiesya-avatarki-anime-avatarka-k-62.jpg' alt='user-avatar' />
+							<img className='user-avatar' src={userData?.avatar} alt='user-avatar' />
 							<div className='user-data'>
 								<span className='user-name'>{userData?.fullName}</span>
 								<span className='user-email'>{userData?.email}</span>
