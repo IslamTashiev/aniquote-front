@@ -47,6 +47,7 @@ const Header = () => {
 						<div className='header-interface-user-info'>
 							<img className='user-avatar' src={userData?.avatar} alt='user-avatar' />
 							<button onClick={() => navigate("/favourites")} className='btn btn-text favourite-btn'>
+								<span className='btn-counter'>{userData?.favourites.length}</span>
 								<FavoiriteIcon />
 							</button>
 							<button onClick={logout} className='btn btn-text'>
