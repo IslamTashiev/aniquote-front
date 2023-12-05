@@ -77,7 +77,9 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 								<div>Loaded data</div>
 							)
 						) : (
-							<div>Loading...</div>
+							<div className='loader-wrapper'>
+								<span className='loader'></span>
+							</div>
 						)}
 						<form onSubmit={handleSubmitComment} className='comments-form'>
 							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
