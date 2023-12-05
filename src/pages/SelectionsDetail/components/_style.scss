@@ -69,6 +69,13 @@
 
 		&-item {
 			cursor: pointer;
+
+			svg.active {
+				path {
+					fill: #e83232;
+					stroke: #e83232;
+				}
+			}
 		}
 	}
 

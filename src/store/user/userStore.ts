@@ -9,6 +9,7 @@ type IUserStore = {
 	getMe: () => void;
 	logout: () => void;
 	register: (params: IUserDataRequest) => void;
+	setUserData: (userData: IQuoteAuthor) => void;
 };
 
 const useUserStore = create<IUserStore>((set) => ({
@@ -30,6 +31,7 @@ const useUserStore = create<IUserStore>((set) => ({
 		const data = await UserActions.register(params);
 		set({ userData: data, isUserLoggedIn: true });
 	},
+	setUserData: (userData) => set({ userData }),
 }));
 
 export default useUserStore;

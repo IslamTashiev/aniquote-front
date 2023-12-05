@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ReactComponent as Reply } from "../../../assets/Reply.svg";
 import { ReactComponent as Save } from "../../../assets/Save.svg";
 import { ReactComponent as Play } from "../../../assets/Play.svg";
@@ -19,9 +19,10 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 	const [comments, setComments] = useState<IQuoteComment[] | null>(null);
 	const [commentsIsLoaded, setCommentsIsLoaded] = useState<boolean>(false);
 	const [commentText, setCommentText] = useState<string>("");
+	const [isQuoteInFavourites, setIsQuoteInFavourites] = useState<boolean>(false);
 
 	const commentsBlockRef = useRef<HTMLDivElement>(null);
-	const { userData } = useUserStore((state) => state);
+	const { userData, setUserData } = useUserStore((state) => state);
 
 	const getCommentsById = () => {
 		setShowComments(!showComments);
@@ -47,6 +48,18 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 		setCommentText("");
 		fetchComments();
 	};
+	const handleSaveToFavouriets = async () => {
+		setIsQuoteInFavourites(!isQuoteInFavourites);
+		const { data } = await axios.post("/add-to-favourites", { quoteId });
+		setUserData(data);
+	};
+
+	useEffect(() => {
+		if (userData) {
+			const isQuoteInUserFavourites = userData.favourites.find((item) => item === quoteId);
+			setIsQuoteInFavourites(Boolean(isQuoteInUserFavourites));
+		}
+	}, [userData, quoteId]);
 
 	return (
 		<div className='quote-item'>
@@ -56,8 +69,8 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 					<div onClick={getCommentsById} className='quote-item-interface-item'>
 						<Reply fillOpacity={showComments ? "1" : "0.4"} />
 					</div>
-					<div className='quote-item-interface-item'>
-						<Save />
+					<div onClick={handleSaveToFavouriets} className='quote-item-interface-item'>
+						<Save className={isQuoteInFavourites ? "active" : ""} />
 					</div>
 					<div className='quote-item-interface-item'>
 						<Play />
