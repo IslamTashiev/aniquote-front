@@ -6,6 +6,7 @@ import noComments from "../../../assets/NoComments.png";
 import Input from "../../../ui/Input";
 import { IQuoteComment } from "../../../models";
 import axios from "../../../axios";
+import useUserStore from "../../../store/user/userStore";
 
 interface QuoteItemProps {
 	quote: string;
@@ -16,18 +17,34 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 	const [showComments, setShowComments] = useState<boolean>(false);
 	const [comments, setComments] = useState<IQuoteComment[] | null>(null);
 	const [commentsIsLoaded, setCommentsIsLoaded] = useState<boolean>(false);
+	const [commentText, setCommentText] = useState<string>("");
 
 	const commentsBlockRef = useRef<HTMLDivElement>(null);
+	const { userData } = useUserStore((state) => state);
 
-	const getCommentsById = async () => {
+	const getCommentsById = () => {
 		setShowComments(!showComments);
 
 		if (!showComments) {
-			setCommentsIsLoaded(false);
-			const { data } = await axios.post("/quote-commits", { quoteId });
-			setCommentsIsLoaded(true);
-			setComments(data);
+			fetchComments();
 		}
+	};
+	const fetchComments = async () => {
+		setCommentsIsLoaded(false);
+		const { data } = await axios.post("/quote-commits", { quoteId });
+		setCommentsIsLoaded(true);
+		setComments(data);
+	};
+	const handleSubmitComment = async (event: React.ChangeEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const submitedData = {
+			text: commentText,
+			author: userData?._id,
+			quoteId: quoteId,
+		};
+
+		await axios.post("/create/commit", submitedData);
+		fetchComments();
 	};
 
 	return (
@@ -62,9 +79,11 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 						) : (
 							<div>Loading...</div>
 						)}
-						<form className='comments-form'>
-							<Input inputWrapperStyles='comments-form-input' label='' onChangeValue={() => {}} placeholder='Leave comment' type='text' />
-							<button className='btn'>Leave comment</button>
+						<form onSubmit={handleSubmitComment} className='comments-form'>
+							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
+							<button type='submit' className='btn'>
+								Leave comment
+							</button>
 						</form>
 					</div>
 				</div>
