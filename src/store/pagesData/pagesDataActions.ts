@@ -10,7 +10,7 @@ export const getAnimeCards = async () => {
 	return data as IAnimeCard[];
 };
 export const getCollections = async (page: number) => {
-	const { data } = await axios("/anime-quotes", {
+	const { data } = await axios("/quotes/anime-quotes", {
 		params: {
 			page,
 			limit: 8,
@@ -19,10 +19,10 @@ export const getCollections = async (page: number) => {
 	return data.docs as ICollectionItem[];
 };
 export const getCollectionsDetail = async (animeTitle: string) => {
-	const { data } = await axios.post("/anime", { animeTitle });
+	const { data } = await axios.post("/quotes/anime", { animeTitle });
 	return data as ICollectionItem[];
 };
 export const searchByTitle = async (title: string) => {
-	const { data } = await axios("/search-anime", { params: { title } });
+	const { data } = await axios("/quotes/search-anime", { params: { title } });
 	return data as ICollectionItem[];
 };
