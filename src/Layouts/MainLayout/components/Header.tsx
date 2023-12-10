@@ -5,8 +5,10 @@ import clsx from "clsx";
 import { ReactComponent as Logo } from "../../../assets/Logo.svg";
 import { ReactComponent as LogoMobile } from "../../../assets/Logo-mobile.svg";
 import { ReactComponent as FavoiriteIcon } from "../../../assets/Favoirite.svg";
+import { ReactComponent as CloseIcon } from "../../../assets/Close.svg";
 import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/user/userStore";
+import Input from "../../../ui/Input";
 
 const Header = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false);
@@ -53,17 +55,26 @@ const Header = () => {
 					</div>
 				</Link>
 				<div className={clsx("header-menu", { active: mobileMenu })}>
-					<ul className='header-menu-list'>
-						<li className='header-menu-list-item'>
-							<Link to='/about-us'>About us</Link>
-						</li>
-						<li className='header-menu-list-item'>
-							<Link to='/news'>News</Link>
-						</li>
-						<li className='header-menu-list-item'>
-							<Link to='/collection'>Collection</Link>
-						</li>
-					</ul>
+					<div className='header-menu-content'>
+						<div className='header-menu-search'>
+							<Input label='' onChangeValue={() => {}} placeholder='Searching for...' type='text' />
+							<button className='btn'>
+								<CloseIcon />
+							</button>
+						</div>
+						<ul className='header-menu-list'>
+							<li className='header-menu-list-item'>
+								<Link to='/about-us'>About us</Link>
+							</li>
+							<li className='header-menu-list-item'>
+								<Link to='/news'>News</Link>
+							</li>
+							<li className='header-menu-list-item'>
+								<Link to='/collection'>Collection</Link>
+							</li>
+						</ul>
+					</div>
+					{renderAuthButtons}
 				</div>
 				<div className='header-interface'>
 					{isUserLoggedIn ? renderAuthLoggedIn : renderAuthButtons}
