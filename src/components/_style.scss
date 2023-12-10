@@ -22,6 +22,11 @@
 
 		@media screen and (max-width: 768px) {
 			padding: 110px 15px;
+			height: 450px;
+		}
+		@media screen and (max-width: 425px) {
+			padding: 60px 15px;
+			height: 380px;
 		}
 	}
 	&-anime-logo {

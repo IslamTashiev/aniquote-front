@@ -25,10 +25,10 @@ const Header = () => {
 					<div className='header-logo'>
 						<Logo />
 					</div>
+					<div className='header-logo-mobile'>
+						<LogoMobile />
+					</div>
 				</Link>
-				<div className='header-logo-mobile'>
-					<LogoMobile />
-				</div>
 				<div className={clsx("header-menu", { active: mobileMenu })}>
 					<ul className='header-menu-list'>
 						<li className='header-menu-list-item'>
