@@ -22,6 +22,10 @@
 	&-title {
 		font-size: 62px;
 		font-weight: 700;
+
+		@media screen and (max-width: 425px) {
+			font-size: 42px;
+		}
 	}
 }
 
@@ -49,10 +53,19 @@
 	border-radius: 10px;
 	padding: 12px 16px 16px;
 
+	@media screen and (max-width: 625px) {
+		padding: 12px;
+	}
+
 	&-text {
 		font-size: 18px;
 		font-weight: 500;
 		font-style: italic;
+
+		@media screen and (max-width: 625px) {
+			font-size: 16px;
+			font-weight: 400;
+		}
 	}
 
 	&-content {
@@ -60,6 +73,12 @@
 		justify-content: space-between;
 		align-items: start;
 		gap: 12px;
+
+		@media screen and (max-width: 625px) {
+			flex-direction: column;
+			align-items: start;
+			gap: 4px;
+		}
 	}
 
 	&-interface {
@@ -113,15 +132,16 @@
 		justify-content: space-between;
 
 		&-input {
-			width: 88%;
+			width: 100%;
 
 			.input {
 				border-radius: 10px;
-			}
-		}
 
-		.btn {
-			border-radius: 10px;
+				@media screen and (max-width: 625px) {
+					height: 30px;
+					padding: 4px 12px;
+				}
+			}
 		}
 	}
 }
@@ -142,6 +162,11 @@
 
 	&-title {
 		margin-bottom: 12px;
+
+		@media screen and (max-width: 625px) {
+			font-size: 18px;
+			margin-bottom: 0;
+		}
 	}
 }
 .comment-item {
@@ -153,6 +178,12 @@
 		border-bottom: 1px solid #9191911f;
 		padding-bottom: 12px;
 		width: 100%;
+	}
+
+	&-text {
+		@media screen and (max-width: 625px) {
+			font-size: 12px;
+		}
 	}
 
 	&-user {
@@ -177,6 +208,28 @@
 		&-createdAt {
 			font-size: 12px;
 			color: #91919185;
+		}
+	}
+}
+.send-button {
+	.btn {
+		width: 45px;
+		height: 45px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 10px;
+		padding: 0;
+		background-color: rgba(93, 93, 93, 0.4);
+		border: 1px solid rgba(155, 155, 155, 0.9);
+
+		&:focus {
+			box-shadow: 0px 0px 1px 3px rgba(155, 155, 155, 0.4);
+		}
+
+		@media screen and (max-width: 625px) {
+			height: 30px;
+			width: 30px;
 		}
 	}
 }
