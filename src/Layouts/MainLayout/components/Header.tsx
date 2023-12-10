@@ -18,6 +18,29 @@ const Header = () => {
 		setMobileMenu(!mobileMenu);
 	};
 
+	const renderAuthButtons = (
+		<div className='header-interface-auth'>
+			<button onClick={() => navigate("/auth/login")} className='btn btn-text header-interface-auth-login'>
+				Login
+			</button>
+			<button onClick={() => navigate("/auth/register")} className='btn header-interface-auth-signin'>
+				Sign up
+			</button>
+		</div>
+	);
+	const renderAuthLoggedIn = (
+		<div className='header-interface-user-info'>
+			<img className='user-avatar' src={userData?.avatar} alt='user-avatar' />
+			<button onClick={() => navigate("/favourites")} className='btn btn-text favourite-btn'>
+				<span className='btn-counter'>{userData?.favourites.length}</span>
+				<FavoiriteIcon />
+			</button>
+			<button onClick={logout} className='btn btn-text'>
+				Logout
+			</button>
+		</div>
+	);
+
 	return (
 		<header className='header'>
 			<div className='header-content container'>
@@ -43,27 +66,7 @@ const Header = () => {
 					</ul>
 				</div>
 				<div className='header-interface'>
-					{isUserLoggedIn ? (
-						<div className='header-interface-user-info'>
-							<img className='user-avatar' src={userData?.avatar} alt='user-avatar' />
-							<button onClick={() => navigate("/favourites")} className='btn btn-text favourite-btn'>
-								<span className='btn-counter'>{userData?.favourites.length}</span>
-								<FavoiriteIcon />
-							</button>
-							<button onClick={logout} className='btn btn-text'>
-								Logout
-							</button>
-						</div>
-					) : (
-						<div className='header-interface-auth'>
-							<button onClick={() => navigate("/auth/login")} className='btn btn-text header-interface-auth-login'>
-								Login
-							</button>
-							<button onClick={() => navigate("/auth/register")} className='btn header-interface-auth-signin'>
-								Sign up
-							</button>
-						</div>
-					)}
+					{isUserLoggedIn ? renderAuthLoggedIn : renderAuthButtons}
 					<div onClick={handleSwitchMobileMenuState} className={clsx("header-interface-menu", { active: mobileMenu })}>
 						<span></span>
 					</div>
