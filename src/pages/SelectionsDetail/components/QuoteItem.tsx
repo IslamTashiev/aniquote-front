@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ReactComponent as Reply } from "../../../assets/Reply.svg";
 import { ReactComponent as Save } from "../../../assets/Save.svg";
 import { ReactComponent as Play } from "../../../assets/Play.svg";
+import { ReactComponent as Send } from "../../../assets/Send.svg";
 import noComments from "../../../assets/NoComments.png";
 import Input from "../../../ui/Input";
 import { IQuoteComment } from "../../../models";
@@ -81,9 +82,11 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 					<div ref={commentsBlockRef} className='quote-item-comments'>
 						<form onSubmit={handleSubmitComment} className='comments-form'>
 							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
-							<button type='submit' className='btn'>
-								Leave comment
-							</button>
+							<div className='send-button'>
+								<button type='submit' className='btn'>
+									<Send width={20} height={20} />
+								</button>
+							</div>
 						</form>
 						{commentsIsLoaded ? (
 							!Boolean(comments?.length) ? (
