@@ -86,7 +86,15 @@ const Header = () => {
 							</li>
 						</ul>
 					</div>
-					{renderAuthButtons}
+					{isUserLoggedIn ? (
+						<div className='header-interface-auth'>
+							<button onClick={logout} className='btn btn-text'>
+								Logout
+							</button>
+						</div>
+					) : (
+						renderAuthButtons
+					)}
 				</div>
 				<div className='header-interface'>
 					{isUserLoggedIn ? renderAuthLoggedIn : renderAuthButtons}
