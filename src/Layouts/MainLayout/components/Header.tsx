@@ -10,8 +10,27 @@ import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/user/userStore";
 import Input from "../../../ui/Input";
 
+const menuItem = [
+	{
+		id: 1,
+		title: "About us",
+		link: "/about-us",
+	},
+	{
+		id: 2,
+		title: "News",
+		link: "/news",
+	},
+	{
+		id: 3,
+		title: "Collection",
+		link: "/collection",
+	},
+];
+
 const Header = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false);
+	const [menuItems, setMenuItems] = useState(menuItem);
 
 	const navigate = useNavigate();
 	const { userData, isUserLoggedIn, logout } = useUserStore((state) => state);
@@ -54,6 +73,20 @@ const Header = () => {
 			document.body.style.overflow = "visible";
 		};
 	}, [mobileMenu]);
+	useEffect(() => {
+		if (isUserLoggedIn) {
+			setMenuItems((prevState) => [
+				...prevState,
+				{
+					id: 4,
+					title: "Favourite",
+					link: "/favourites",
+				},
+			]);
+		} else {
+			setMenuItems((prevState) => prevState.filter((item) => item.id !== 4));
+		}
+	}, [isUserLoggedIn]);
 
 	return (
 		<header className='header'>
@@ -75,15 +108,11 @@ const Header = () => {
 							</button>
 						</div>
 						<ul className='header-menu-list'>
-							<li className='header-menu-list-item'>
-								<Link to='/about-us'>About us</Link>
-							</li>
-							<li className='header-menu-list-item'>
-								<Link to='/news'>News</Link>
-							</li>
-							<li className='header-menu-list-item'>
-								<Link to='/collection'>Collection</Link>
-							</li>
+							{menuItems.map((item) => (
+								<li key={item.id} className='header-menu-list-item'>
+									<Link to={item.link}>{item.title}</Link>
+								</li>
+							))}
 						</ul>
 					</div>
 					{isUserLoggedIn ? (
