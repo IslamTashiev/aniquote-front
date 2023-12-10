@@ -17,16 +17,31 @@
 		position: relative;
 		z-index: 2;
 		padding: 120px 15px 200px;
+
+		@media screen and (max-width: 768px) {
+			padding: 90px 15px 140px;
+		}
+		@media screen and (max-width: 425px) {
+			padding: 40px 15px 80px;
+		}
 	}
 
 	&-title {
 		font-size: 62px;
 		font-weight: 700;
+
+		@media screen and (max-width: 525px) {
+			font-size: 32px;
+		}
 	}
 	&-subtitle {
 		font-size: 16px;
 		font-weight: 500;
 		max-width: 550px;
+
+		@media screen and (max-width: 525px) {
+			font-size: 14px;
+		}
 	}
 }
 
@@ -34,10 +49,21 @@
 	margin-top: 48px;
 	margin-bottom: 48px;
 
+	@media screen and (max-width: 525px) {
+		margin-top: 24px;
+		margin-bottom: 24px;
+	}
+
 	&-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: end;
+
+		.header-subtitle {
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
+		}
 	}
 
 	&-search-btn {
@@ -59,6 +85,16 @@
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		grid-gap: 12px;
+
+		@media screen and (max-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		@media screen and (max-width: 595px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media screen and (max-width: 395px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
 	}
 }
 .collection-item {
@@ -66,6 +102,10 @@
 	height: 150px;
 	position: relative;
 	overflow: hidden;
+
+	@media screen and (max-width: 768px) {
+		height: 100px;
+	}
 
 	&::-webkit-scrollbar {
 		display: none;
@@ -181,5 +221,19 @@
 
 	&-close-icon {
 		cursor: pointer;
+	}
+}
+.collection-loader-item {
+	height: 150px;
+
+	@media screen and (max-width: 768px) {
+		height: 100px;
+	}
+	rect {
+		height: 150px;
+
+		@media screen and (max-width: 768px) {
+			height: 100px;
+		}
 	}
 }
