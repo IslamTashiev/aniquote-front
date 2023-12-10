@@ -111,7 +111,7 @@ const Header = () => {
 						</div>
 						<ul className='header-menu-list'>
 							{menuItems.map((item) => (
-								<li key={item.id} className={clsx("header-menu-list-item", { active: location.pathname === item.link })}>
+								<li onClick={() => setMobileMenu(false)} key={item.id} className={clsx("header-menu-list-item", { active: location.pathname === item.link })}>
 									<Link to={item.link}>{item.title}</Link>
 								</li>
 							))}
