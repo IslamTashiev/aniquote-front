@@ -13,6 +13,10 @@
 			align-items: center;
 			gap: 12px;
 
+			@media screen and (max-width: 620px) {
+				display: none;
+			}
+
 			.btn {
 				width: 36px;
 				height: 36px;
@@ -31,6 +35,18 @@
 	.collection-swiper {
 		margin-top: 24px;
 		height: 330px;
+
+		@media screen and (max-width: 620px) {
+			.swiper-slide-active,
+			.swiper-slide-next {
+				width: calc(100% / 2 + 20px) !important;
+
+				&.last,
+				&.prelast {
+					width: calc(100% / 2 - 4px) !important;
+				}
+			}
+		}
 	}
 }
 .main-carousel-loader-wrapper {

@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperTypes } from "swiper";
 import AnimeCard from "../../../components/AnimeCard";
 import usePagesDataStore from "../../../store/pagesData/pagesData";
+import clsx from "clsx";
 
 import "swiper/css";
 import "./_style.scss";
@@ -40,8 +41,8 @@ const SelectionOfAnimeCarousel = ({ setSwiper, setCurrentSlideIndex }: Selection
 
 	return (
 		<Swiper onInit={(e: SwiperTypes) => setSwiper(e)} onSlideChange={(e: SwiperTypes) => setCurrentSlideIndex(e.activeIndex)} className='collection-swiper' breakpoints={swiperBreakpoints}>
-			{animeCards.map((card) => (
-				<SwiperSlide key={card._id}>
+			{animeCards.map((card, index) => (
+				<SwiperSlide className={clsx(index === animeCards.length - 1 ? "last" : index === animeCards.length - 2 ? "prelast" : "")} key={card._id}>
 					<AnimeCard info={card} />
 				</SwiperSlide>
 			))}
