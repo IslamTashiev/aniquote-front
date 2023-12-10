@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from "../../../assets/Logo.svg";
 import { ReactComponent as LogoMobile } from "../../../assets/Logo-mobile.svg";
 import { ReactComponent as FavoiriteIcon } from "../../../assets/Favoirite.svg";
 import { ReactComponent as CloseIcon } from "../../../assets/Close.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/user/userStore";
 import Input from "../../../ui/Input";
 
@@ -31,6 +31,8 @@ const menuItem = [
 const Header = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false);
 	const [menuItems, setMenuItems] = useState(menuItem);
+
+	const location = useLocation();
 
 	const navigate = useNavigate();
 	const { userData, isUserLoggedIn, logout } = useUserStore((state) => state);
@@ -109,7 +111,7 @@ const Header = () => {
 						</div>
 						<ul className='header-menu-list'>
 							{menuItems.map((item) => (
-								<li key={item.id} className='header-menu-list-item'>
+								<li key={item.id} className={clsx("header-menu-list-item", { active: location.pathname === item.link })}>
 									<Link to={item.link}>{item.title}</Link>
 								</li>
 							))}

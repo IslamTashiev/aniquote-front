@@ -90,6 +90,10 @@
 			&-item {
 				cursor: pointer;
 
+				&.active a {
+					color: #ff4444;
+				}
+
 				a {
 					color: #fff;
 					text-decoration: none;
