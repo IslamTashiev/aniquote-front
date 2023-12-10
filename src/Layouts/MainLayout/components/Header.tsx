@@ -1,5 +1,5 @@
 import "./_style.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 
 import { ReactComponent as Logo } from "../../../assets/Logo.svg";
@@ -42,6 +42,18 @@ const Header = () => {
 			</button>
 		</div>
 	);
+
+	useEffect(() => {
+		if (mobileMenu) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "visible";
+		}
+
+		return () => {
+			document.body.style.overflow = "visible";
+		};
+	}, [mobileMenu]);
 
 	return (
 		<header className='header'>
