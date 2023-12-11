@@ -101,7 +101,7 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 										{comments?.length} comment{comments?.length === 1 ? "" : "s"}
 									</h2>
 									{comments?.map((item) => (
-										<QuoteCommentItem key={item._id} info={item} />
+										<QuoteCommentItem key={item._id} info={item} authorId={userData?._id} />
 									))}
 								</div>
 							)
