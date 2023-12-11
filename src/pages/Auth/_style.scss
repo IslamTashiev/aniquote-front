@@ -19,8 +19,9 @@
 
 		@media screen and (max-width: 580px) {
 			flex-direction: column;
-			max-height: 90vh;
-			padding: 26px 0;
+			height: auto;
+			max-height: none;
+			padding: 26px 0 0;
 			border-radius: 25px;
 		}
 	}
@@ -63,7 +64,10 @@
 			top: 50%;
 			height: 50%;
 			width: 100%;
-			padding: 10px;
+			padding: 10px 10px 0 10px;
+			position: static;
+			margin-top: 18px;
+			border-radius: 25px;
 		}
 
 		&-title {
@@ -99,6 +103,10 @@
 		.girl-image {
 			border-radius: 50px;
 			width: 100%;
+
+			@media screen and (max-width: 580px) {
+				border-radius: 25px;
+			}
 		}
 	}
 }
