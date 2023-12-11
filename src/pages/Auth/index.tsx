@@ -1,28 +1,48 @@
 import React, { useState } from "react";
 import Input from "../../ui/Input";
-import { ReactComponent as GoogleIcon } from "../../assets/Google.svg";
 import { ReactComponent as HideIcon } from "../../assets/Hide.svg";
 import { ReactComponent as ShowIcon } from "../../assets/Show.svg";
-import { Navigate, useParams } from "react-router-dom";
+import authImage from "../../assets/Auth-girl.png";
+import { Navigate } from "react-router-dom";
 import useUserStore from "../../store/user/userStore";
+import clsx from "clsx";
 
 import "./_style.scss";
+
+const authInfoTexts = {
+	login: {
+		title: "Welcome back!",
+		subtitle: "Embrace the nostalgia! Welcome back to your anime sanctuary. Log in and relive your favorite moments",
+		invite: {
+			text: "No account yet? Join the Anime Realm by Signing Up!",
+			inviteText: "Signing Up!",
+		},
+	},
+	register: {
+		title: "Create Your Account Today!",
+		subtitle: "Embark on an Unforgettable Journey through Diverse Anime Realms, Connect with Like-minded Fans, and Uncover Endless Adventures",
+		invite: {
+			text: "Already Part of the Adventure? Log In and Resume Your Anime Odyssey!",
+			inviteText: "Log In",
+		},
+	},
+};
 
 const Auth = () => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [nickName, setNickName] = useState<string>("");
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+	const [authType, setAuthType] = useState<"login" | "register">("register");
 
 	const { login, register, isUserLoggedIn } = useUserStore((state) => state);
-	const { authType } = useParams();
-	const isRegisterPage = authType === "register";
+	const authInfoText = authInfoTexts[authType];
 
 	const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		setShowPassword(!showPassword);
 	};
-	const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>, isRegisterPage: boolean) => {
 		e.preventDefault();
 		if (isRegisterPage) {
 			register({ email, password, fullName: nickName });
@@ -30,10 +50,18 @@ const Auth = () => {
 			login({ email, password });
 		}
 	};
-	const renderAuthLayout = (
+	const handleSwitchAuthType = () => {
+		if (authType === "login") {
+			setAuthType("register");
+		} else {
+			setAuthType("login");
+		}
+	};
+
+	const renderAuthLayout = (title: string, isRegisterPage: boolean) => (
 		<div className='auth'>
-			<h1 className='auth-title'>Register</h1>
-			<form onSubmit={handleSubmit} className='auth-form'>
+			<h1 className='auth-title'>{title}</h1>
+			<form onSubmit={(e) => handleSubmit(e, isRegisterPage)} className='auth-form'>
 				<Input label='Email' value={email} onChangeValue={(value) => setEmail(value)} placeholder='example@gmail.com' type='email' isRequired={true} />
 				<div className='auth-password'>
 					<Input
@@ -65,16 +93,19 @@ const Auth = () => {
 	return (
 		<div className='auth-page'>
 			<div className='auth-page-content container'>
-				<div className='auth-page-form'>
-					{renderAuthLayout}
-					<div className='other-auth-types'>
-						<span>Or join with</span>
-
-						<button className='btn btn-text google-btn'>
-							<GoogleIcon width={24} height={24} />
-							Google
-						</button>
+				<div className='auth-page-form'>{authType === "register" && renderAuthLayout("Registration", true)}</div>
+				<div className='auth-page-form'>{authType === "login" && renderAuthLayout("Login", false)}</div>
+				<div className={clsx("auth-page-info", [authType])}>
+					<div className='auth-page-text'>
+						<h2 className='auth-page-info-title'>{authInfoText.title}</h2>
+						<p className='auth-page-info-subtitle'>{authInfoText.subtitle}</p>
+						<p className='auth-page-info-text'>
+							{authInfoText.invite.text.split(authInfoText.invite.inviteText)[0]}
+							<span onClick={handleSwitchAuthType}>{authInfoText.invite.inviteText}</span>
+							{authInfoText.invite.text.split(authInfoText.invite.inviteText)[1]}
+						</p>
 					</div>
+					<img className='girl-image' src={authImage} alt='auth-girl' />
 				</div>
 			</div>
 		</div>
