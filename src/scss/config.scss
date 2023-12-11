@@ -28,6 +28,10 @@ ul {
 	transition: 0.2s all ease;
 	position: relative;
 
+	&.disabled {
+		background-color: #bd9191;
+		pointer-events: none;
+	}
 	&-counter {
 		position: absolute;
 		top: 0;
