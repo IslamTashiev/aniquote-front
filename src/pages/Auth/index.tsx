@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../ui/Input";
 import { ReactComponent as HideIcon } from "../../assets/Hide.svg";
 import { ReactComponent as ShowIcon } from "../../assets/Show.svg";
 import authImage from "../../assets/Auth-girl.png";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import useUserStore from "../../store/user/userStore";
 import clsx from "clsx";
 
@@ -34,16 +34,19 @@ const Auth = () => {
 	const [nickName, setNickName] = useState<string>("");
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [authType, setAuthType] = useState<"login" | "register">("register");
+	const [pending, setPending] = useState<boolean>(false);
 
 	const { login, register, isUserLoggedIn } = useUserStore((state) => state);
 	const authInfoText = authInfoTexts[authType];
+	const { authType: searchAuthType } = useParams();
 
 	const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		setShowPassword(!showPassword);
 	};
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>, isRegisterPage: boolean) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, isRegisterPage: boolean) => {
 		e.preventDefault();
+		setPending(true);
 		if (isRegisterPage) {
 			register({ email, password, fullName: nickName });
 		} else {
@@ -79,12 +82,19 @@ const Auth = () => {
 				</div>
 				{isRegisterPage ? <Input label='Nick Name' value={nickName} onChangeValue={(value) => setNickName(value)} placeholder='Enter your nick name' type='text' isRequired={true} /> : null}
 
-				<button type='submit' className='btn'>
+				<button type='submit' className={clsx("btn", { disabled: pending })}>
 					{isRegisterPage ? "Register" : "Login"}
+					{pending && "..."}
 				</button>
 			</form>
 		</div>
 	);
+
+	useEffect(() => {
+		if (searchAuthType) {
+			setAuthType(searchAuthType as "login" | "register");
+		}
+	}, [searchAuthType]);
 
 	if (isUserLoggedIn) {
 		return <Navigate to='/' />;
