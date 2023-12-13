@@ -169,6 +169,24 @@
 		font-size: 24px;
 		font-weight: 600;
 		cursor: pointer;
+
+		span {
+			color: #e83232;
+			margin-left: 16px;
+			position: relative;
+
+			&::after {
+				content: "";
+				position: absolute;
+				left: -10px;
+				top: 50%;
+				width: 5px;
+				height: 5px;
+				border-radius: 5px;
+				transform: translateY(-50%);
+				background-color: #919191;
+			}
+		}
 	}
 }
 .comments-list {
