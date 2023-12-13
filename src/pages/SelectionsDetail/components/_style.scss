@@ -1,6 +1,6 @@
 .main-poster {
-	background: url("../../../assets/Selections-bckg.png") no-repeat center;
-	background-size: cover;
+	// background: url("../../../assets/Selections-bckg.png") no-repeat center;
+	background-size: cover !important;
 	position: relative;
 
 	&::after {
