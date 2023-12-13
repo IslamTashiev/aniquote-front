@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IQuoteComment } from "../../../models";
-import { ReactComponent as EditIcon } from "../../../assets/Edit.svg";
-import { ReactComponent as DeleteIcon } from "../../../assets/Delete.svg";
+import { IQuoteComment } from "../../models";
+import { ReactComponent as EditIcon } from "../../assets/Edit.svg";
+import { ReactComponent as DeleteIcon } from "../../assets/Delete.svg";
 import clsx from "clsx";
 
 interface QuoteCommentItemProps {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import QuoteItem from "./QuoteItem";
-import usePagesDataStore from "../../../store/pagesData/pagesData";
 import QuotesListLoader from "./QuotesListLoader";
-import { IQuote } from "../../../models";
+import { ICollectionItem, IQuote } from "../../models";
 
 interface IFormatedQuote {
 	quote: string;
@@ -12,10 +11,16 @@ interface IFormatedQuote {
 interface IFormatedCollection {
 	quotes: IFormatedQuote[];
 	character: string;
+	anime?: string;
 }
 
-const QuotesList = () => {
-	const { collectionDetailData, collectionDetailDataIsLoaded } = usePagesDataStore((state) => state);
+interface IQuotesListProps {
+	quotesList: ICollectionItem[];
+	isLoading: boolean;
+	showAnimeTitle: boolean;
+}
+
+const QuotesList = ({ isLoading, quotesList, showAnimeTitle }: IQuotesListProps) => {
 	const [formatedCollection, setFormatedCollection] = useState<IFormatedCollection[]>([]);
 
 	const filterUniqueByField = (arr: IQuote[]) => {
@@ -34,22 +39,27 @@ const QuotesList = () => {
 	};
 
 	useEffect(() => {
-		if (collectionDetailDataIsLoaded) {
-			const filteredQuotes = filterUniqueByField(collectionDetailData[0].quotes).map((name) => {
-				const filteredByCharacter = collectionDetailData[0].quotes.filter((item) => item.character === name).map((item) => ({ quote: item.quote, quoteId: item._id }));
+		if (isLoading) {
+			const filteredQuotes = filterUniqueByField(quotesList[0].quotes).map((name) => {
+				const filteredByCharacter = quotesList[0].quotes.filter((item) => item.character === name).map((item) => ({ quote: item.quote, quoteId: item._id }));
 				const mergedQuotes = filteredByCharacter.flat();
-				return { quotes: mergedQuotes, character: name } as IFormatedCollection;
+				const characterItem = quotesList[0].quotes.find((item) => item.character === name);
+				const anime = characterItem ? characterItem.anime : "";
+				return { quotes: mergedQuotes, character: name, anime } as IFormatedCollection;
 			});
 			setFormatedCollection(filteredQuotes);
 		}
-	}, [collectionDetailDataIsLoaded, collectionDetailData]);
+	}, [isLoading, quotesList]);
 
 	return (
 		<div className='quotes-list container'>
-			{collectionDetailDataIsLoaded && formatedCollection.length ? (
+			{isLoading && formatedCollection.length ? (
 				formatedCollection.map((item) => (
 					<div className='quotes-group'>
-						<h4 className='quotes-group-title'>{item.character}</h4>
+						<h4 className='quotes-group-title'>
+							{item.character}
+							{item.anime && showAnimeTitle && <span>{item.anime}</span>}
+						</h4>
 						<div className='quotes'>
 							{item.quotes.map((item) => (
 								<QuoteItem key={item.quoteId} quote={item.quote} quoteId={item.quoteId} />
