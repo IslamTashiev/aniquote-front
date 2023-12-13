@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ReactComponent as Reply } from "../../../assets/Reply.svg";
-import { ReactComponent as Save } from "../../../assets/Save.svg";
-import { ReactComponent as Play } from "../../../assets/Play.svg";
-import { ReactComponent as Send } from "../../../assets/Send.svg";
-import noComments from "../../../assets/NoComments.png";
-import Input from "../../../ui/Input";
-import { IQuoteComment } from "../../../models";
-import axios from "../../../axios";
-import useUserStore from "../../../store/user/userStore";
+import { ReactComponent as Reply } from "../../assets/Reply.svg";
+import { ReactComponent as Save } from "../../assets/Save.svg";
+import { ReactComponent as Play } from "../../assets/Play.svg";
+import { ReactComponent as Send } from "../../assets/Send.svg";
+import noComments from "../../assets/NoComments.png";
 import QuoteCommentItem from "./QuoteCommentItem";
+import { IQuoteComment } from "../../models";
+import useUserStore from "../../store/user/userStore";
+import axios from "../../axios";
+import Input from "../../ui/Input";
 
 interface QuoteItemProps {
 	quote: string;

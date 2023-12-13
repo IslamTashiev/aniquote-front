@@ -4,7 +4,6 @@ import clsx from "clsx";
 
 import { ReactComponent as Logo } from "../../../assets/Logo.svg";
 import { ReactComponent as LogoMobile } from "../../../assets/Logo-mobile.svg";
-import { ReactComponent as FavoiriteIcon } from "../../../assets/Favoirite.svg";
 import { ReactComponent as CloseIcon } from "../../../assets/Close.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/user/userStore";
@@ -54,10 +53,6 @@ const Header = () => {
 	const renderAuthLoggedIn = (
 		<div className='header-interface-user-info'>
 			<img className='user-avatar' src={userData?.avatar} alt='user-avatar' />
-			<button onClick={() => navigate("/favourites")} className='btn btn-text favourite-btn'>
-				<span className='btn-counter'>{userData?.favourites.length}</span>
-				<FavoiriteIcon />
-			</button>
 			<button onClick={logout} className='btn btn-text'>
 				Logout
 			</button>
@@ -111,9 +106,12 @@ const Header = () => {
 						</div>
 						<ul className='header-menu-list'>
 							{menuItems.map((item) => (
-								<li onClick={() => setMobileMenu(false)} key={item.id} className={clsx("header-menu-list-item", { active: location.pathname === item.link })}>
-									<Link to={item.link}>{item.title}</Link>
-								</li>
+								<Link to={item.link}>
+									<li onClick={() => setMobileMenu(false)} key={item.id} className={clsx("header-menu-list-item", { active: location.pathname === item.link })}>
+										{item.title}
+										{item.id === 4 && userData && userData.favourites.length > 0 && <span className='header-menu-list-item-count'>{userData.favourites.length}</span>}
+									</li>
+								</Link>
 							))}
 						</ul>
 					</div>

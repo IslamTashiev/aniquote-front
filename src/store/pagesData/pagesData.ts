@@ -35,19 +35,23 @@ const usePagesDataStore = create<IPagesData>((set, get) => ({
 	foundedTitles: [],
 	titlesIsLoaded: false,
 	getMainCarouselItems: async () => {
-		set({ mainCarouselDataIsLoaded: false });
+		const { mainCarouselData } = get();
+		set({ mainCarouselDataIsLoaded: Boolean(mainCarouselData.length) });
 		const data = await PagesDataActions.getMainCarouselItems();
+		const isDataEqual = JSON.stringify(mainCarouselData) === JSON.stringify(data);
 
-		if (data.length) {
+		if (data.length && !isDataEqual) {
 			set({ mainCarouselDataIsLoaded: true });
 			set({ mainCarouselData: data });
 		}
 	},
 	getAnimeCards: async () => {
-		set({ animeCardsIsLoaded: false });
+		const { animeCards } = get();
+		set({ animeCardsIsLoaded: Boolean(animeCards.length) });
 		const data = await PagesDataActions.getAnimeCards();
+		const isDataEqual = JSON.stringify(animeCards) === JSON.stringify(data);
 
-		if (data.length) {
+		if (data.length && !isDataEqual) {
 			set({ animeCardsIsLoaded: true });
 			set({ animeCards: data });
 		}

@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import usePagesDataStore from "../../store/pagesData/pagesData";
-import MainPoster from "./components/MainPoster";
-import QuotesList from "./components/QuotesList";
-import { IQuote } from "../../models";
+import QuotesList from "../../components/quote-list/QuotesList";
+import MainPoster from "../../components/quote-list/MainPoster";
 
 const SelectionsDetail = () => {
-	const [mainQuote, setMainQuote] = useState<IQuote | null>(null);
-
 	const { animeTitle } = useParams();
 	const { getCollectionDetailData, collectionDetailData, collectionDetailDataIsLoaded } = usePagesDataStore((state) => state);
 
@@ -16,17 +13,11 @@ const SelectionsDetail = () => {
 			getCollectionDetailData(animeTitle);
 		}
 	}, [getCollectionDetailData, animeTitle]);
-	useEffect(() => {
-		if (collectionDetailDataIsLoaded) {
-			const randomIndex = Math.floor(Math.random() * collectionDetailData[0].quotes.length);
-			setMainQuote(collectionDetailData[0].quotes[randomIndex]);
-		}
-	}, [collectionDetailData, collectionDetailDataIsLoaded]);
 
 	return (
 		<>
-			<MainPoster bgImage={collectionDetailDataIsLoaded ? collectionDetailData[0].anime_image[1] : ""} mainQuote={mainQuote} />
-			<QuotesList />
+			<MainPoster quotesList={collectionDetailData} isLoading={collectionDetailDataIsLoaded} title='Collection  of ' subTitle={animeTitle ?? ""} />
+			<QuotesList quotesList={collectionDetailData} isLoading={collectionDetailDataIsLoaded} showAnimeTitle={false} />
 		</>
 	);
 };
