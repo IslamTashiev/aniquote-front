@@ -6,6 +6,8 @@ import AboutUs from "./pages/AboutUs";
 import SelectionsDetail from "./pages/SelectionsDetail";
 import Collections from "./pages/Collections";
 import Auth from "./pages/Auth";
+import useUserStore from "./store/user/userStore";
+import Favourites from "./pages/Favourites";
 
 interface IRoutes {
 	path: string;
@@ -15,6 +17,8 @@ interface IRoutes {
 }
 
 const Routes = () => {
+	const { isUserLoggedIn } = useUserStore((state) => state);
+
 	const routes: IRoutes[] = [
 		{ path: "/", component: <Home />, containerType: "no-container" },
 		{ path: "/about-us", component: <AboutUs />, containerType: "no-container" },
@@ -22,10 +26,12 @@ const Routes = () => {
 		{ path: "/collection", component: <Collections />, containerType: "no-container" },
 		{ path: "/auth/:authType", component: <Auth />, containerType: "no-container", noLayout: true },
 	];
+	const privateRoutes: IRoutes[] = [...routes, { path: "/favourites", component: <Favourites />, containerType: "no-container" }];
+	const r = isUserLoggedIn ? privateRoutes : routes;
 
 	return (
 		<RoutesCore>
-			{routes.map((item) => (
+			{r.map((item) => (
 				<Route key={item.path} path={item.path} element={item.noLayout ? item.component : <MainLayout containerType={item.containerType}>{item.component}</MainLayout>} />
 			))}
 		</RoutesCore>

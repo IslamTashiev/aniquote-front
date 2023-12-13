@@ -20,7 +20,7 @@ export const getCollections = async (page: number) => {
 };
 export const getCollectionsDetail = async (animeTitle: string) => {
 	const { data } = await axios.post("/quotes/anime", { animeTitle });
-	return data as ICollectionItem[];
+	return data as ICollectionItem;
 };
 export const searchByTitle = async (title: string) => {
 	const { data } = await axios("/quotes/search-anime", { params: { title } });

@@ -6,18 +6,18 @@ import "./_style.scss";
 interface MainPosterProps {
 	title: string;
 	subTitle: string;
-	quotesList: ICollectionItem[];
+	quotesList: ICollectionItem | null;
 	isLoading: boolean;
 }
 
 const MainPoster = ({ subTitle, title, quotesList, isLoading }: MainPosterProps) => {
 	const [mainQuote, setMainQuote] = useState<IQuote | null>(null);
-	const bgImage = isLoading ? quotesList[0].anime_image[1] : "";
+	const bgImage = isLoading ? quotesList?.anime_image[1] : "";
 
 	useEffect(() => {
-		if (isLoading) {
-			const randomIndex = Math.floor(Math.random() * quotesList[0].quotes.length);
-			setMainQuote(quotesList[0].quotes[randomIndex]);
+		if (isLoading && quotesList) {
+			const randomIndex = Math.floor(Math.random() * quotesList?.quotes.length);
+			setMainQuote(quotesList?.quotes[randomIndex]);
 		}
 	}, [quotesList, isLoading]);
 

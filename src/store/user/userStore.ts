@@ -1,20 +1,25 @@
 import create from "zustand";
-import { IQuoteAuthor, IUserDataRequest } from "../../models";
+import { ICollectionItem, IQuoteAuthor, IUserDataRequest } from "../../models";
 import * as UserActions from "./userActions";
 
 type IUserStore = {
 	userData: IQuoteAuthor | null;
 	isUserLoggedIn: boolean;
+	favourites: ICollectionItem | null;
+	favouritesIsLoaded: boolean;
 	login: (params: IUserDataRequest) => void;
 	getMe: () => void;
 	logout: () => void;
 	register: (params: IUserDataRequest) => void;
 	addToFavourites: (quoteId: string) => void;
+	getFavourites: () => void;
 };
 
 const useUserStore = create<IUserStore>((set) => ({
 	userData: null,
 	isUserLoggedIn: false,
+	favourites: null,
+	favouritesIsLoaded: false,
 	login: async (params) => {
 		const data = await UserActions.login(params);
 		set({ userData: data, isUserLoggedIn: true });
@@ -34,6 +39,11 @@ const useUserStore = create<IUserStore>((set) => ({
 	addToFavourites: async (quoteId: string) => {
 		const data = await UserActions.addToFavourites(quoteId);
 		set({ userData: data });
+	},
+	getFavourites: async () => {
+		set({ favouritesIsLoaded: false });
+		const data = await UserActions.getFavourites();
+		set({ favourites: data, favouritesIsLoaded: true });
 	},
 }));
 

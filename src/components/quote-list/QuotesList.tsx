@@ -15,7 +15,7 @@ interface IFormatedCollection {
 }
 
 interface IQuotesListProps {
-	quotesList: ICollectionItem[];
+	quotesList: ICollectionItem | null;
 	isLoading: boolean;
 	showAnimeTitle: boolean;
 }
@@ -39,11 +39,11 @@ const QuotesList = ({ isLoading, quotesList, showAnimeTitle }: IQuotesListProps)
 	};
 
 	useEffect(() => {
-		if (isLoading) {
-			const filteredQuotes = filterUniqueByField(quotesList[0].quotes).map((name) => {
-				const filteredByCharacter = quotesList[0].quotes.filter((item) => item.character === name).map((item) => ({ quote: item.quote, quoteId: item._id }));
+		if (isLoading && quotesList) {
+			const filteredQuotes = filterUniqueByField(quotesList?.quotes).map((name) => {
+				const filteredByCharacter = quotesList?.quotes.filter((item) => item.character === name).map((item) => ({ quote: item.quote, quoteId: item._id }));
 				const mergedQuotes = filteredByCharacter.flat();
-				const characterItem = quotesList[0].quotes.find((item) => item.character === name);
+				const characterItem = quotesList?.quotes.find((item) => item.character === name);
 				const anime = characterItem ? characterItem.anime : "";
 				return { quotes: mergedQuotes, character: name, anime } as IFormatedCollection;
 			});
