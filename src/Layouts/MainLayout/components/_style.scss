@@ -87,16 +87,29 @@
 			display: flex;
 			gap: 24px;
 
+			a {
+				color: #fff;
+				text-decoration: none;
+			}
+
 			&-item {
 				cursor: pointer;
+				position: relative;
 
-				&.active a {
-					color: #ff4444;
+				&-count {
+					position: absolute;
+					top: 50%;
+					right: 0;
+					transform: translate(110%, -50%);
+					background-color: #fff;
+					color: #1e1e1e;
+					font-size: 12px;
+					padding: 0 5px;
+					border-radius: 12px;
 				}
 
-				a {
-					color: #fff;
-					text-decoration: none;
+				&.active {
+					color: #ff4444;
 				}
 			}
 
