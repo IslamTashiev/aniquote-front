@@ -30,3 +30,7 @@ export const addToFavourites = async (quoteId: string) => {
 	const { data } = await axios.post("/add-to-favourites", { quoteId });
 	return data;
 };
+export const getFavourites = async () => {
+	const { data } = await axios.get("/quotes/my-favourites");
+	return data;
+};

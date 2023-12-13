@@ -9,7 +9,7 @@ type IPagesData = {
 	animeCardsIsLoaded: boolean;
 	collectionData: ICollectionItem[];
 	collectionDataIsLoaded: boolean;
-	collectionDetailData: ICollectionItem[];
+	collectionDetailData: ICollectionItem | null;
 	collectionDetailDataIsLoaded: boolean;
 	loadedCollectionPages: number | null;
 	foundedTitles: ICollectionItem[];
@@ -29,7 +29,7 @@ const usePagesDataStore = create<IPagesData>((set, get) => ({
 	animeCardsIsLoaded: false,
 	collectionData: [],
 	collectionDataIsLoaded: false,
-	collectionDetailData: [],
+	collectionDetailData: null,
 	collectionDetailDataIsLoaded: false,
 	loadedCollectionPages: null,
 	foundedTitles: [],
