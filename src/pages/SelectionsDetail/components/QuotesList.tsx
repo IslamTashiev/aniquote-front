@@ -46,12 +46,6 @@ const QuotesList = () => {
 
 	return (
 		<div className='quotes-list container'>
-			{collectionDetailDataIsLoaded && (
-				<h2 className='quotes-list-title'>
-					Collection of <span>{collectionDetailData[0].anime}</span>
-				</h2>
-			)}
-
 			{collectionDetailDataIsLoaded && formatedCollection.length ? (
 				formatedCollection.map((item) => (
 					<div className='quotes-group'>
