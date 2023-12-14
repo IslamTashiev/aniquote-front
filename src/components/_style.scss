@@ -127,6 +127,7 @@
 
 	&-content {
 		position: absolute;
+		z-index: 10;
 		border-radius: 10px;
 		bottom: 0;
 		left: 0;
@@ -139,6 +140,8 @@
 		justify-content: space-between;
 		background: rgba(60, 60, 60, 0.7);
 		backdrop-filter: blur(5.599999904632568px);
+		margin: 5px;
+		overflow: hidden;
 
 		&::after {
 			content: "";
@@ -167,6 +170,7 @@
 	&:hover {
 		.anime-card-content {
 			height: 100%;
+			margin: 0;
 
 			&::after {
 				background: transparent;

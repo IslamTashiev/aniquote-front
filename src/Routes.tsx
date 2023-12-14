@@ -8,6 +8,7 @@ import Collections from "./pages/Collections";
 import Auth from "./pages/Auth";
 import useUserStore from "./store/user/userStore";
 import Favourites from "./pages/Favourites";
+import News from "./pages/News";
 
 interface IRoutes {
 	path: string;
@@ -25,6 +26,7 @@ const Routes = () => {
 		{ path: "/selections/:animeTitle", component: <SelectionsDetail />, containerType: "no-container" },
 		{ path: "/collection", component: <Collections />, containerType: "no-container" },
 		{ path: "/auth/:authType", component: <Auth />, containerType: "no-container", noLayout: true },
+		{ path: "/news", component: <News />, containerType: "no-container" },
 	];
 	const privateRoutes: IRoutes[] = [...routes, { path: "/favourites", component: <Favourites />, containerType: "no-container" }];
 	const r = isUserLoggedIn ? privateRoutes : routes;
