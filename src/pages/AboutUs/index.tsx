@@ -4,10 +4,10 @@ import AboutUsSection from "./components/AboutUsSection";
 
 const AboutUs = () => {
 	return (
-		<>
+		<div data-aos='zoom-out'>
 			<MainHero />
 			<AboutUsSection />
-		</>
+		</div>
 	);
 };
 
