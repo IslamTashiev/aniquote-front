@@ -6,10 +6,10 @@ import "./_style.scss";
 
 const Home = () => {
 	return (
-		<>
+		<div data-aos='zoom-out'>
 			<MainCarousel />
 			<SelectionOfAnime />
-		</>
+		</div>
 	);
 };
 

@@ -15,10 +15,10 @@ const SelectionsDetail = () => {
 	}, [getCollectionDetailData, animeTitle]);
 
 	return (
-		<>
+		<div data-aos='zoom-out'>
 			<MainPoster quotesList={collectionDetailData} isLoading={collectionDetailDataIsLoaded} title='Collection  of ' subTitle={animeTitle ?? ""} />
 			<QuotesList quotesList={collectionDetailData} isLoading={collectionDetailDataIsLoaded} showAnimeTitle={false} />
-		</>
+		</div>
 	);
 };
 

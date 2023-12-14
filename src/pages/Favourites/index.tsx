@@ -11,10 +11,10 @@ const Favourites = () => {
 	}, [getFavourites]);
 
 	return (
-		<>
+		<div data-aos='zoom-out'>
 			<MainPoster quotesList={favourites} isLoading={favouritesIsLoaded} title='Your saved  ' subTitle='quotes' />
 			<QuotesList quotesList={favourites} isLoading={favouritesIsLoaded} showAnimeTitle={true} />
-		</>
+		</div>
 	);
 };
 
