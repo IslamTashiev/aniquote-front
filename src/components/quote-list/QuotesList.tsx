@@ -53,7 +53,7 @@ const QuotesList = ({ isLoading, quotesList, showAnimeTitle }: IQuotesListProps)
 
 	return (
 		<div className='quotes-list container'>
-			{isLoading && formatedCollection.length ? (
+			{isLoading ? (
 				formatedCollection.map((item) => (
 					<div className='quotes-group'>
 						<h4 className='quotes-group-title'>
