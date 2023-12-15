@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/user/userStore";
 
 import "./_style.scss";
+import { useAppStore } from "../store/appStore";
 
 interface MainCarauselItemProps {
 	info: IMainCarouselData;
@@ -20,7 +21,8 @@ const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCaraus
 	const [isQuoteInFavourites, setIsQuoteInFavourites] = useState<boolean>(false);
 
 	const navigate = useNavigate();
-	const { userData, addToFavourites } = useUserStore((state) => state);
+	const { userData, addToFavourites, isUserLoggedIn } = useUserStore((state) => state);
+	const { checkUserAuthorized } = useAppStore((state) => state);
 
 	const handleFavourite = () => {
 		setIsQuoteInFavourites(!isQuoteInFavourites);
@@ -43,7 +45,7 @@ const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCaraus
 					<button className='btn see-more' onClick={() => navigate("/selections/" + info.anime)}>
 						See more
 					</button>
-					<button onClick={handleFavourite} className='btn btn-icon'>
+					<button onClick={() => checkUserAuthorized(handleFavourite, isUserLoggedIn)} className='btn btn-icon'>
 						<FavoiriteIcon className={isQuoteInFavourites ? "active" : ""} />
 					</button>
 				</div>
