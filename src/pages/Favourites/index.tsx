@@ -10,10 +10,11 @@ const Favourites = () => {
 	useEffect(() => {
 		getFavourites();
 	}, [getFavourites]);
+	console.log(favourites);
 
 	return (
 		<div data-aos='zoom-out'>
-			<MainPoster quotesList={favourites} isLoading={favouritesIsLoaded} title='Your saved  ' subTitle='quotes' />
+			<MainPoster quotesList={favourites} isLoading={favouritesIsLoaded} title='Your saved  ' subTitle={favouritesIsLoaded && !favourites?.quotes.length ? "quotes is empty" : "quotes"} />
 			<QuotesList quotesList={favourites} isLoading={favouritesIsLoaded} showAnimeTitle={true} />
 		</div>
 	);

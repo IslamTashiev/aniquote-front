@@ -12,7 +12,7 @@ interface MainPosterProps {
 
 const MainPoster = ({ subTitle, title, quotesList, isLoading }: MainPosterProps) => {
 	const [mainQuote, setMainQuote] = useState<IQuote | null>(null);
-	const bgImage = isLoading ? quotesList?.anime_image[1] : "";
+	const bgImage = isLoading && quotesList?.anime_image?.length ? quotesList?.anime_image[1] : "";
 
 	useEffect(() => {
 		if (isLoading && quotesList) {
