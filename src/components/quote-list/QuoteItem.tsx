@@ -55,6 +55,10 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 		setIsQuoteInFavourites(!isQuoteInFavourites);
 		addToFavourites(quoteId);
 	};
+	const onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		checkUserAuthorized(handleSubmitComment, isUserLoggedIn);
+	};
 
 	useEffect(() => {
 		if (userData) {
@@ -82,7 +86,7 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 			{showComments && (
 				<div className='comments-wrapper'>
 					<div ref={commentsBlockRef} className='quote-item-comments'>
-						<form onSubmit={() => checkUserAuthorized(handleSubmitComment, isUserLoggedIn)} className='comments-form'>
+						<form onSubmit={onSubmit} className='comments-form'>
 							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
 							<div className='send-button'>
 								<button type='submit' className='btn'>
