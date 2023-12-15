@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import usePagesDataStore from "../../store/pagesData/pagesData";
 import QuotesList from "../../components/quote-list/QuotesList";
 import MainPoster from "../../components/quote-list/MainPoster";
+import { Helmet } from "react-helmet";
 
 const SelectionsDetail = () => {
 	const { animeTitle } = useParams();
@@ -22,4 +23,17 @@ const SelectionsDetail = () => {
 	);
 };
 
-export default SelectionsDetail;
+const ComponentWrapper = () => {
+	const { animeTitle } = useParams();
+	return (
+		<>
+			<Helmet>
+				<title>AniQuote • {animeTitle}</title>
+				<meta name='description' content='News page' />
+			</Helmet>
+			<SelectionsDetail />
+		</>
+	);
+};
+
+export default ComponentWrapper;

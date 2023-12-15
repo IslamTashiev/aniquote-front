@@ -8,6 +8,7 @@ import useUserStore from "../../store/user/userStore";
 import clsx from "clsx";
 
 import "./_style.scss";
+import { Helmet } from "react-helmet";
 
 const authInfoTexts = {
 	login: {
@@ -122,4 +123,17 @@ const Auth = () => {
 	);
 };
 
-export default Auth;
+const ComponentWrapper = () => {
+	const { authType } = useParams();
+	return (
+		<>
+			<Helmet>
+				<title>AniQuote • Auth • {authType?.toLocaleUpperCase()}</title>
+				<meta name='description' content='Embrace the nostalgia! Welcome back to your anime sanctuary. Log in and relive your favorite moments' />
+			</Helmet>
+			<Auth />
+		</>
+	);
+};
+
+export default ComponentWrapper;
