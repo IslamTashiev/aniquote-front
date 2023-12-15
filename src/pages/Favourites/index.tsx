@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import QuotesList from "../../components/quote-list/QuotesList";
 import MainPoster from "../../components/quote-list/MainPoster";
 import useUserStore from "../../store/user/userStore";
+import { Helmet } from "react-helmet";
 
 const Favourites = () => {
 	const { getFavourites, favourites, favouritesIsLoaded } = useUserStore((state) => state);
@@ -18,4 +19,16 @@ const Favourites = () => {
 	);
 };
 
-export default Favourites;
+const ComponentWrapper = () => {
+	return (
+		<>
+			<Helmet>
+				<title>AniQuote • Favourites</title>
+				<meta name='description' content='User favourites' />
+			</Helmet>
+			<Favourites />
+		</>
+	);
+};
+
+export default ComponentWrapper;

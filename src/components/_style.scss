@@ -183,3 +183,39 @@
 		}
 	}
 }
+
+.unauthorized-modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&-content {
+		padding: 0 !important;
+	}
+
+	h3 {
+		font-size: 24px;
+		font-weight: 600;
+		margin: 24px 0 12px;
+		text-align: center;
+	}
+
+	p {
+		font-size: 16px;
+		font-weight: 400;
+		text-align: center;
+
+		span {
+			color: #e83232;
+		}
+		a {
+			color: #e83232;
+			text-decoration: none;
+		}
+	}
+
+	img {
+		margin-top: 24px;
+		width: 100%;
+	}
+}

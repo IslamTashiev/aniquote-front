@@ -4,6 +4,7 @@ import Routes from "./Routes";
 import useUserStore from "./store/user/userStore";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import UnAuthorizedModal from "./components/UnAuthorizedModal";
 
 function App() {
 	const { pathname } = useLocation();
@@ -32,7 +33,12 @@ function App() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return <Routes />;
+	return (
+		<>
+			<Routes />
+			<UnAuthorizedModal />
+		</>
+	);
 }
 
 export default App;

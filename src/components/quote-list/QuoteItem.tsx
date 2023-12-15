@@ -9,6 +9,7 @@ import { IQuoteComment } from "../../models";
 import useUserStore from "../../store/user/userStore";
 import axios from "../../axios";
 import Input from "../../ui/Input";
+import { useAppStore } from "../../store/appStore";
 
 interface QuoteItemProps {
 	quote: string;
@@ -23,7 +24,8 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 	const [isQuoteInFavourites, setIsQuoteInFavourites] = useState<boolean>(false);
 
 	const commentsBlockRef = useRef<HTMLDivElement>(null);
-	const { userData, addToFavourites } = useUserStore((state) => state);
+	const { userData, addToFavourites, isUserLoggedIn } = useUserStore((state) => state);
+	const { checkUserAuthorized } = useAppStore((state) => state);
 
 	const getCommentsById = () => {
 		setShowComments(!showComments);
@@ -80,7 +82,7 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 			{showComments && (
 				<div className='comments-wrapper'>
 					<div ref={commentsBlockRef} className='quote-item-comments'>
-						<form onSubmit={handleSubmitComment} className='comments-form'>
+						<form onSubmit={() => checkUserAuthorized(handleSubmitComment, isUserLoggedIn)} className='comments-form'>
 							<Input inputWrapperStyles='comments-form-input' label='' value={commentText} onChangeValue={(value) => setCommentText(value)} placeholder='Leave comment' type='text' />
 							<div className='send-button'>
 								<button type='submit' className='btn'>
