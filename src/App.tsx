@@ -8,7 +8,7 @@ import UnAuthorizedModal from "./components/UnAuthorizedModal";
 
 function App() {
 	const { pathname } = useLocation();
-	const { getMe } = useUserStore((state) => state);
+	const { checkAuth } = useUserStore((state) => state);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -17,9 +17,9 @@ function App() {
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		if (token) {
-			getMe();
+			checkAuth();
 		}
-	}, [getMe]);
+	}, [checkAuth]);
 
 	useEffect(() => {
 		AOS.init({
