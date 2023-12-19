@@ -1,14 +1,14 @@
 import create from "zustand";
-import { ICollectionItem, IUserData, IUserDataRequest } from "../../models";
+import { ICollectionItem, IQuoteAuthor, IUserDataRequest } from "../../models";
 import * as UserActions from "./userActions";
 
 type IUserStore = {
-	userData: IUserData | null;
+	userData: IQuoteAuthor | null;
 	isUserLoggedIn: boolean;
 	favourites: ICollectionItem | null;
 	favouritesIsLoaded: boolean;
 	login: (params: IUserDataRequest) => void;
-	checkAuth: () => void;
+	getMe: () => void;
 	logout: () => void;
 	register: (params: IUserDataRequest) => void;
 	addToFavourites: (quoteId: string) => void;
@@ -22,19 +22,19 @@ const useUserStore = create<IUserStore>((set) => ({
 	favouritesIsLoaded: false,
 	login: async (params) => {
 		const data = await UserActions.login(params);
-		set({ userData: data.user, isUserLoggedIn: true });
+		set({ userData: data, isUserLoggedIn: true });
 	},
-	checkAuth: async () => {
-		const data = await UserActions.checkAuth();
-		set({ userData: data.user, isUserLoggedIn: Boolean(data.user) });
+	getMe: async () => {
+		const data = await UserActions.getUserData();
+		set({ userData: data, isUserLoggedIn: Boolean(data) });
 	},
-	logout: async () => {
-		await UserActions.logout();
+	logout: () => {
+		localStorage.removeItem("token");
 		set({ userData: null, isUserLoggedIn: false });
 	},
 	register: async (params: IUserDataRequest) => {
 		const data = await UserActions.register(params);
-		set({ userData: data.user, isUserLoggedIn: true });
+		set({ userData: data, isUserLoggedIn: true });
 	},
 	addToFavourites: async (quoteId: string) => {
 		const data = await UserActions.addToFavourites(quoteId);

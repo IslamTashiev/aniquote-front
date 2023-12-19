@@ -58,11 +58,3 @@ export interface IQuoteComment {
 	createdAt: string;
 	updatedAt: string;
 }
-export interface IUserData {
-	email: string;
-	name: string;
-	avatar: string;
-	favourites: string[];
-	_id: string;
-	isActivated: boolean;
-}
