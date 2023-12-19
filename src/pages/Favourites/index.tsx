@@ -10,6 +10,7 @@ const Favourites = () => {
 	useEffect(() => {
 		getFavourites();
 	}, [getFavourites]);
+	console.log(favourites);
 
 	return (
 		<div data-aos='zoom-out'>
