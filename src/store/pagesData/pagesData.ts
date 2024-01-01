@@ -1,10 +1,10 @@
 import create from "zustand";
-import { IAnimeCard, ICollectionItem, IMainCarouselData } from "../../models";
+import { IAnimeCard, ICollectionItem, IMainPosterItem } from "../../models";
 import * as PagesDataActions from "./pagesDataActions";
 
 type IPagesData = {
-	mainCarouselData: IMainCarouselData[];
-	mainCarouselDataIsLoaded: boolean;
+	mainPosters: IMainPosterItem[];
+	isMainPostersLoaded: boolean;
 	animeCards: IAnimeCard[];
 	animeCardsIsLoaded: boolean;
 	collectionData: ICollectionItem[];
@@ -14,7 +14,7 @@ type IPagesData = {
 	loadedCollectionPages: number | null;
 	foundedTitles: ICollectionItem[];
 	titlesIsLoaded: boolean;
-	getMainCarouselItems: () => void;
+	getMainPosters: () => void;
 	getAnimeCards: () => void;
 	getCollectionDetailData: (animeTitle: string) => void;
 	getCollectionData: (page: number) => void;
@@ -23,8 +23,8 @@ type IPagesData = {
 };
 
 const usePagesDataStore = create<IPagesData>((set, get) => ({
-	mainCarouselData: [],
-	mainCarouselDataIsLoaded: false,
+	mainPosters: [],
+	isMainPostersLoaded: false,
 	animeCards: [],
 	animeCardsIsLoaded: false,
 	collectionData: [],
@@ -34,15 +34,15 @@ const usePagesDataStore = create<IPagesData>((set, get) => ({
 	loadedCollectionPages: null,
 	foundedTitles: [],
 	titlesIsLoaded: false,
-	getMainCarouselItems: async () => {
-		const { mainCarouselData } = get();
-		set({ mainCarouselDataIsLoaded: Boolean(mainCarouselData.length) });
-		const data = await PagesDataActions.getMainCarouselItems();
-		const isDataEqual = JSON.stringify(mainCarouselData) === JSON.stringify(data);
+	getMainPosters: async () => {
+		const { mainPosters } = get();
+		set({ isMainPostersLoaded: Boolean(mainPosters.length) });
+		const data = await PagesDataActions.getMainPosters();
+		const isDataEqual = JSON.stringify(mainPosters) === JSON.stringify(data);
 
 		if (data.length && !isDataEqual) {
-			set({ mainCarouselDataIsLoaded: true });
-			set({ mainCarouselData: data });
+			set({ isMainPostersLoaded: true });
+			set({ mainPosters: data });
 		}
 	},
 	getAnimeCards: async () => {

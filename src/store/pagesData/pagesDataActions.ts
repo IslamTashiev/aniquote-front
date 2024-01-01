@@ -1,9 +1,9 @@
 import axios from "../../axios";
-import { IAnimeCard, ICollectionItem, IMainCarouselData } from "../../models";
+import { IAnimeCard, ICollectionItem, IMainPosterItem } from "../../models";
 
-export const getMainCarouselItems = async () => {
-	const { data } = await axios("/carousel-items");
-	return data as IMainCarouselData[];
+export const getMainPosters = async () => {
+	const { data } = await axios("/posters");
+	return data as IMainPosterItem[];
 };
 export const getAnimeCards = async () => {
 	const { data } = await axios("/anime-cards");
