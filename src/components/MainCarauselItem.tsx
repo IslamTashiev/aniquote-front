@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import QuoteText from "./QuoteText";
 import { ReactComponent as FavoiriteIcon } from "../assets/Favoirite.svg";
-import { IMainCarouselData } from "../models";
+import { IMainPosterItem } from "../models";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/user/userStore";
 
@@ -11,7 +11,7 @@ import "./_style.scss";
 import { useAppStore } from "../store/appStore";
 
 interface MainCarauselItemProps {
-	info: IMainCarouselData;
+	info: IMainPosterItem;
 	activeItem: number;
 	slidesCount: number;
 	slideTo: (slideIndex: number) => void;
@@ -37,12 +37,12 @@ const MainCarauselItem = ({ info, activeItem, slidesCount, slideTo }: MainCaraus
 	}, [userData, info]);
 
 	return (
-		<div style={{ background: `url(${info.anime_bckg}) center` }} className='main-carousel-item'>
+		<div style={{ background: `url(${info.posterBackground}) center` }} className='main-carousel-item'>
 			<div className='main-carousel-item-content container'>
-				<img className='main-carousel-item-anime-logo' src={info.anime_logo} alt='anime-logo' />
-				<QuoteText author={info.character} quote={info.quote} wrapperClass='carousel-quote' />
+				<img className='main-carousel-item-anime-logo' src={info.titleLogo} alt='anime-logo' />
+				<QuoteText author={info.quote[0].character} quote={info.quote[0].quote} wrapperClass='carousel-quote' />
 				<div className='main-carousel-item-btns'>
-					<button className='btn see-more' onClick={() => navigate("/selections/" + info.anime)}>
+					<button className='btn see-more' onClick={() => navigate("/selections/" + info.quote[0].anime)}>
 						See more
 					</button>
 					<button onClick={() => checkUserAuthorized(handleFavourite, isUserLoggedIn)} className='btn btn-icon'>

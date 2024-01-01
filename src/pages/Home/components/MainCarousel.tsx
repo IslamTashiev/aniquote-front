@@ -16,7 +16,7 @@ export default function App() {
 	const [swiper, setSwiper] = useState<SwiperTypes | null>(null);
 	const [activeIndex, setActiveIndex] = useState<number>(0);
 
-	const { getMainCarouselItems, mainCarouselData, mainCarouselDataIsLoaded } = usePagesDataStore((state) => state);
+	const { getMainPosters, mainPosters, isMainPostersLoaded } = usePagesDataStore((state) => state);
 
 	const slideTo = (slideIndex: number) => {
 		if (swiper) {
@@ -25,12 +25,12 @@ export default function App() {
 	};
 
 	useEffect(() => {
-		getMainCarouselItems();
-	}, [getMainCarouselItems]);
+		getMainPosters();
+	}, [getMainPosters]);
 
 	return (
 		<>
-			{mainCarouselDataIsLoaded ? (
+			{isMainPostersLoaded ? (
 				<Swiper
 					spaceBetween={30}
 					effect={"fade"}
@@ -38,9 +38,9 @@ export default function App() {
 					onInit={(event: SwiperTypes) => setSwiper(event)}
 					onSlideChange={({ activeIndex }: SwiperTypes) => setActiveIndex(activeIndex)}
 				>
-					{mainCarouselData.map((item, index) => (
+					{mainPosters.map((item, index) => (
 						<SwiperSlide key={index}>
-							<MainCarauselItem slideTo={slideTo} info={item} activeItem={activeIndex} slidesCount={mainCarouselData.length} />
+							<MainCarauselItem slideTo={slideTo} info={item} activeItem={activeIndex} slidesCount={mainPosters.length} />
 						</SwiperSlide>
 					))}
 				</Swiper>
