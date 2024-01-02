@@ -1,5 +1,5 @@
 import "./_style.scss";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 import { ReactComponent as Logo } from "../../../assets/Logo.svg";
@@ -32,7 +32,7 @@ const Header = () => {
 	const [menuItems, setMenuItems] = useState(menuItem);
 
 	const location = useLocation();
-
+	const headerRef = useRef<HTMLElement>(null);
 	const navigate = useNavigate();
 	const { userData, isUserLoggedIn, logout } = useUserStore((state) => state);
 
@@ -84,9 +84,23 @@ const Header = () => {
 			setMenuItems((prevState) => prevState.filter((item) => item.id !== 4));
 		}
 	}, [isUserLoggedIn]);
+	useEffect(() => {
+		let lastScroll = 0;
+		document.addEventListener("scroll", () => {
+			const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+			if (currentScroll > lastScroll && headerRef.current) {
+				headerRef.current.style.top = `-${headerRef.current.offsetHeight}px`;
+			} else if (headerRef.current) {
+				headerRef.current.style.top = "0";
+			}
+			lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+		});
+		document.body.style.paddingTop = `${headerRef?.current?.offsetHeight}px` ?? "0";
+	}, []);
 
 	return (
-		<header className='header'>
+		<header ref={headerRef} className='header'>
 			<div className='header-content container'>
 				<Link to='/'>
 					<div className='header-logo'>
