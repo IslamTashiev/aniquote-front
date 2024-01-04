@@ -84,20 +84,20 @@ const Header = () => {
 			setMenuItems((prevState) => prevState.filter((item) => item.id !== 4));
 		}
 	}, [isUserLoggedIn]);
-	useEffect(() => {
-		let lastScroll = 0;
-		document.addEventListener("scroll", () => {
-			const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+	// useEffect(() => {
+	// 	let lastScroll = 0;
+	// 	document.addEventListener("scroll", () => {
+	// 		const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-			if (currentScroll > lastScroll && headerRef.current) {
-				headerRef.current.style.top = `-${headerRef.current.offsetHeight}px`;
-			} else if (headerRef.current) {
-				headerRef.current.style.top = "0";
-			}
-			lastScroll = currentScroll <= 0 ? 0 : currentScroll;
-		});
-		document.body.style.paddingTop = `${headerRef?.current?.offsetHeight}px` ?? "0";
-	}, []);
+	// 		if (currentScroll > lastScroll && headerRef.current) {
+	// 			headerRef.current.style.top = `-${headerRef.current.offsetHeight}px`;
+	// 		} else if (headerRef.current) {
+	// 			headerRef.current.style.top = "0";
+	// 		}
+	// 		lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+	// 	});
+	// 	document.body.style.paddingTop = `${headerRef?.current?.offsetHeight}px` ?? "0";
+	// }, []);
 
 	return (
 		<header ref={headerRef} className='header'>
