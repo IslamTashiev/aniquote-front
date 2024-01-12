@@ -97,6 +97,10 @@ const Header = () => {
 			lastScroll = currentScroll <= 0 ? 0 : currentScroll;
 		});
 		document.body.style.paddingTop = `${headerRef?.current?.offsetHeight}px` ?? "0";
+
+		return () => {
+			document.body.style.paddingTop = "0";
+		};
 	}, []);
 
 	return (
