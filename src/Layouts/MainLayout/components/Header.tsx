@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 import { ReactComponent as Logo } from "../../../assets/Logo.svg";
-import { ReactComponent as LogoMobile } from "../../../assets/Logo-mobile.svg";
+// import { ReactComponent as LogoMobile } from "../../../assets/Logo-mobile.svg";
 import { ReactComponent as CloseIcon } from "../../../assets/Close.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/user/userStore";
@@ -111,7 +111,8 @@ const Header = () => {
 						<Logo />
 					</div>
 					<div className='header-logo-mobile'>
-						<LogoMobile />
+						<Logo />
+						{/* <LogoMobile /> */}
 					</div>
 				</Link>
 				<div className={clsx("header-menu", { active: mobileMenu })}>
