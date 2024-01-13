@@ -12,17 +12,41 @@ interface MainPosterProps {
 
 const MainPoster = ({ subTitle, title, quotesList, isLoading }: MainPosterProps) => {
 	const [mainQuote, setMainQuote] = useState<IQuote | null>(null);
-	const bgImage = isLoading && quotesList?.anime_image?.length ? quotesList?.anime_image[1] : "";
+	const [scrollPosition, setScrollPosition] = useState(0);
 
 	useEffect(() => {
 		if (isLoading && quotesList) {
-			const randomIndex = Math.floor(Math.random() * quotesList?.quotes.length);
-			setMainQuote(quotesList?.quotes[randomIndex]);
+			const randomIndex = Math.floor(Math.random() * quotesList.quotes.length);
+			setMainQuote(quotesList.quotes[randomIndex]);
 		}
+
+		return () => {
+			setMainQuote(null);
+		};
 	}, [quotesList, isLoading]);
 
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrollPosition(window.scrollY);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
+	const bgImage = isLoading && quotesList?.anime_image?.length ? quotesList.anime_image[1] : "";
+	const parallaxOffset = scrollPosition * 0.35;
+
+	const posterStyle: React.CSSProperties = {
+		background: `url(${bgImage}) no-repeat center`,
+		backgroundSize: "cover",
+		backgroundPosition: `center ${parallaxOffset}px`,
+	};
+
 	return (
-		<div className='main-poster' style={{ background: `url(${bgImage}) no-repeat center`, backgroundSize: "cover" }}>
+		<div className='main-poster' style={posterStyle}>
 			<div className='main-poster-content container'>
 				<h1 className='main-poster-title quotes-list-title'>
 					{title}
