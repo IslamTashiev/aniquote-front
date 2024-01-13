@@ -40,8 +40,7 @@ const QuoteItem = ({ quote, quoteId }: QuoteItemProps) => {
 		setCommentsIsLoaded(true);
 		setComments(data);
 	};
-	const handleSubmitComment = async (event: React.ChangeEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	const handleSubmitComment = async () => {
 		const submitedData = {
 			text: commentText,
 			author: userData?._id,
